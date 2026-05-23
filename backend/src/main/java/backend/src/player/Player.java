@@ -1,7 +1,10 @@
 package backend.src.player;
 
 import backend.src.model.BaseEntity;
+import backend.src.user.User;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,15 +18,16 @@ import lombok.Setter;
 @Entity
 public class Player extends BaseEntity {
 
-    @NotNull
+    @NotBlank
     private String name;
 
-    @NotNull
+    @NotBlank
     private String surname;
 
-    @NotNull
+    @NotBlank
     private String email;
 
     @NotNull
     private PositionType corePosition;
+
 }

@@ -1,7 +1,6 @@
 package backend.src.user;
 
 import backend.src.model.BaseEntity;
-import backend.src.team.Team;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -9,36 +8,24 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "user")
+@Table(name = "app_user")
 public class User extends BaseEntity {
 
-    @NotNull
-    private String name;
-
-    private String surname;
-
-    @NotNull
-    private String email;
+    @Column(unique = true)
+    private String username;
 
     private String password;
-
-    @NotNull
-    private String phoneNumber;
 
     @NotNull
     @ManyToOne(optional = false)
     @JoinColumn(name = "authority")
     Authorities authority;
-
-    @OneToMany
-    List<Team> teams;
 
     public Boolean hasAuthority(String auth){
         return authority.getAuthority().equals(auth);

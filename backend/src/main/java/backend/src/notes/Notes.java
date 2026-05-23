@@ -1,12 +1,10 @@
-package backend.src.match;
+package backend.src.notes;
 
 import backend.src.model.BaseEntity;
 import backend.src.player.Player;
-import backend.src.player.PositionType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,19 +15,17 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class SetParticipation extends BaseEntity {
+public class Notes extends BaseEntity {
 
-    @NotNull
-    private PositionType positionType;
+    @NotEmpty
+    @Size(max = 256)
+    private String subject;
 
-    @NotNull
-    private int points;
+    @NotBlank
+    @Size(max = 512)
+    private String description;
 
     @NotNull
     @ManyToOne
     private Player player;
-
-    @NotNull
-    @ManyToOne
-    MatchSet matchSet;
 }

@@ -6,7 +6,9 @@ import backend.src.player.Player;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,9 +24,11 @@ import java.util.List;
 @Entity
 public class Team extends BaseEntity {
 
-    @NotNull
+    @NotBlank
+    @Size(max = 256)
     private String name;
 
+    @NotNull
     private LocalDate foundationDate;
 
     private String logoUrl;

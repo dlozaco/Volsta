@@ -1,6 +1,7 @@
 package backend.src.match;
 
 import backend.src.model.BaseEntity;
+import backend.src.notes.Notes;
 import backend.src.team.Team;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -32,6 +33,12 @@ public class Match extends BaseEntity {
     private LocalDateTime endMoment;
 
     private String place;
+
+    @NotNull
+    private MatchType matchType;
+
+    @OneToMany
+    private List<Notes> notes;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     List<MatchSet> sets;
