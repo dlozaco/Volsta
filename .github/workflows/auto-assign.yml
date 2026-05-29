@@ -1,0 +1,21 @@
+name: Auto-asignar Issues
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  auto-assign:
+    runs-on: ubuntu-latest
+
+    permissions:
+      issues: write 
+    
+    steps:
+      - name: Asignar el issue al creador
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue edit ${{ github.event.issue.number }} \
+            --repo ${{ github.repository }} \
+            --add-assignee ${{ github.actor }}
