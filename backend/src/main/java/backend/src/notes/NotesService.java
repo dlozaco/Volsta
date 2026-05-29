@@ -1,0 +1,53 @@
+package backend.src.notes;
+
+import backend.src.exceptions.ResourceNotFoundException;
+import jakarta.validation.Valid;
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+@Service
+public class NotesService {
+
+    private final NotesRepository notesRepository;
+
+    public NotesService(NotesRepository notesRepository) {
+        this.notesRepository = notesRepository;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Notes> findAll() {
+        return notesRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public Notes findById(Integer id) {
+        return notesRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Notes", "id", id));
+    }
+
+    @Transactional(readOnly = true)
+    public List<Notes> findByPlayerId(Integer playerId) {
+        return notesRepository.findByPlayerId(playerId);
+    }
+
+    @Transactional
+    public Notes create(Notes notes) {
+        return notesRepository.save(notes);
+    }
+
+    @Transactional
+    public Notes update(@Valid Notes notes, Integer id) {
+        Notes existing = findById(id);
+        BeanUtils.copyProperties(notes, existing, "id");
+        return notesRepository.save(existing);
+    }
+
+    @Transactional
+    public void delete(Integer id) {
+        Notes notes = findById(id);
+        notesRepository.delete(notes);
+    }
+}
