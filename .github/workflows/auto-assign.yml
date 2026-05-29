@@ -1,21 +1,38 @@
-name: Auto-asignar Issues
+name: Auto-asignar y Priorizar Issues
 
 on:
   issues:
-    types: [opened]
+    # Añadimos 'edited' por si se te olvida poner la prioridad al crearlo 
+    # y la añades editando la descripción después.
+    types: [opened, edited]
 
 jobs:
-  auto-assign:
+  auto-assign-and-label:
     runs-on: ubuntu-latest
-
     permissions:
       issues: write 
     
     steps:
-      - name: Asignar el issue al creador
+      - name: Asignar al creador y añadir etiqueta de prioridad
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
         run: |
           gh issue edit ${{ github.event.issue.number }} \
             --repo ${{ github.repository }} \
             --add-assignee ${{ github.actor }}
+            
+          TEXTO_ISSUE="$ISSUE_TITLE $ISSUE_BODY"
+          
+          PRIORIDAD=$(echo "$TEXTO_ISSUE" | grep -oP '\bP[0-2]\b' | head -n 1)
+          
+          if [ -n "$PRIORIDAD" ]; then
+            echo "Se ha detectado la prioridad: $PRIORIDAD"
+            gh issue edit ${{ github.event.issue.number }} \
+              --repo ${{ github.repository }} \
+              --add-label "$PRIORIDAD"
+          else
+            echo "No se encontró ninguna prioridad explícita en el texto."
+          fi
