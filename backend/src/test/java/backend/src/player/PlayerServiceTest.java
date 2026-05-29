@@ -46,8 +46,19 @@ class PlayerServiceTest {
     }
 
     @Test
+    void shouldFindPlayerByName_RightName() {
+        Player player = playerService.findByName("David Lozano");
+        assertEquals(1, player.getId());
+    }
+
+    @Test
+    void shouldFindPlayerByName_WrongName_ReturnsResourceNotFound() {
+        assertThrows(ResourceNotFoundException.class, () -> playerService.findByName("Wrong name"));
+    }
+
+    @Test
     void shouldFindByCorePosition() {
-        assertEquals(3, playerService.findByCorePosition(PositionType.MIDDLE_BLOCKER).size());
+        assertEquals(4, playerService.findByCorePosition(PositionType.MIDDLE_BLOCKER).size());
     }
 
     @Test

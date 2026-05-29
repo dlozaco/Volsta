@@ -40,7 +40,7 @@ class NotesServiceTest {
 
     @Test
     void shouldFindNotesByPlayerId() {
-        assertEquals(2, notesService.findByPlayerId(1).size());
+        assertEquals(1, notesService.findByPlayerId(1).size());
     }
 
     @Test

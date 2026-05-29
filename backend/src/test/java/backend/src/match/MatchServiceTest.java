@@ -52,6 +52,18 @@ class MatchServiceTest {
 
     @Test
     @Transactional
+    void shouldFindMatchSetsById() {
+        assertEquals(3, matchService.findMatchSetsById(1).size());
+    }
+
+    @Test
+    @Transactional
+    void shouldFindMatchNotesById() {
+        assertEquals(2, matchService.findMatchNotesById(1).size());
+    }
+
+    @Test
+    @Transactional
     void shouldCreateMatch_ReturnsOk() {
         int count = matchService.findAll().size();
         Team local = teamService.findById(1);
