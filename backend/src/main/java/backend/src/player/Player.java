@@ -28,6 +28,9 @@ public class Player extends BaseEntity {
     private String email;
 
     @NotNull
+    private int dorsal;
+
+    @NotNull
     private PositionType corePosition;
 
 }
