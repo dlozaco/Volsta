@@ -20,9 +20,11 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 public class Manager extends BaseEntity {
+
     @NotNull
     private String name;
 
+    @NotNull
     private String surname;
 
     @NotNull

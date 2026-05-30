@@ -27,19 +27,19 @@ INSERT INTO manager_teams(manager_id, teams_id) VALUES
     (2,2);
 
 -- Player
-INSERT INTO player(id, name, surname, email, core_position) VALUES
-     (1, 'David Lozano', 'Lozano Acosta', 'david.lozano@quokka.es', 1),
-     (2, 'Carlos García', 'Martínez López', 'carlos.garcia@quokka.es', 1),
-     (3, 'Juan Rodríguez', 'Fernández Silva', 'juan.rodriguez@quokka.es', 3),
-     (4, 'Miguel Sánchez', 'Díaz Torres', 'miguel.sanchez@quokka.es', 0),
-     (5, 'Antonio', 'García Gómez', 'antonio.garcia@quokka.es', 4),
-     (6, 'Antonio López', 'Pérez Gómez', 'antonio.lopez@quokka.es', 2),
-     (7, 'Pedro González', 'Ruiz Castillo', 'pedro.gonzalez@barcelona.es', 1),
-     (8, 'Francisco Jiménez', 'Moreno Vega', 'francisco.jimenez@barcelona.es', 3),
-     (9, 'José María', 'Campos Ramírez', 'jose.maria@barcelona.es', 0),
-     (10, 'Andrés Navarro', 'Romero Guerrero', 'andres.navarro@barcelona.es', 2),
-     (11, 'Roberto Cortés', 'Vargas Mendez', 'roberto.cortes@barcelona.es', 1),
-     (12, 'José', 'Jiménez Pérez', 'jose.jimenez@barcelona.es', 4);
+INSERT INTO player(id, name, surname, email, core_position, dorsal) VALUES
+     (1, 'David Lozano', 'Lozano Acosta', 'david.lozano@quokka.es', 1, 10),
+     (2, 'Carlos García', 'Martínez López', 'carlos.garcia@quokka.es', 1, 7),
+     (3, 'Juan Rodríguez', 'Fernández Silva', 'juan.rodriguez@quokka.es', 3, 8),
+     (4, 'Miguel Sánchez', 'Díaz Torres', 'miguel.sanchez@quokka.es', 0, 4),
+     (5, 'Antonio', 'García Gómez', 'antonio.garcia@quokka.es', 4, 24),
+     (6, 'Antonio López', 'Pérez Gómez', 'antonio.lopez@quokka.es', 2, 47),
+     (7, 'Pedro González', 'Ruiz Castillo', 'pedro.gonzalez@barcelona.es', 1, 12),
+     (8, 'Francisco Jiménez', 'Moreno Vega', 'francisco.jimenez@barcelona.es', 3,13),
+     (9, 'José María', 'Campos Ramírez', 'jose.maria@barcelona.es', 0, 23),
+     (10, 'Andrés Navarro', 'Romero Guerrero', 'andres.navarro@barcelona.es', 2, 41),
+     (11, 'Roberto Cortés', 'Vargas Mendez', 'roberto.cortes@barcelona.es', 1, 14),
+     (12, 'José', 'Jiménez Pérez', 'jose.jimenez@barcelona.es', 4, 1);
 
 INSERT INTO team_players(players_id, team_id) VALUES
     (1,1),
@@ -66,8 +66,6 @@ INSERT INTO notes(id, subject, description, player_id) VALUES
     (7, 'Remate potente', 'Muy buen remate, necesita más precisión', 8),
     (8, 'Colocación inteligente', 'Excelente distribuidor, visión de juego', 10);
 
-
-
 -- MATCH
 INSERT INTO match(id, local_team_id, visitor_team_id, start_moment, end_moment, place, match_type) VALUES
     (1, 1, 2, '2025-02-15 19:00:00', '2025-02-15 20:30:00', 'Pabellón QuokkaCV', 0),
@@ -84,7 +82,6 @@ INSERT INTO match_notes(match_id, notes_id) VALUES
     (3,6),
     (4,7),
     (4,8);
-
 
 -- MATCHSET
 INSERT INTO match_set(id, set_number, local_team_score, visitor_team_score) VALUES
