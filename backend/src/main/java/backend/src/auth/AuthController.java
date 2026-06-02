@@ -2,6 +2,7 @@ package backend.src.auth;
 
 import backend.src.auth.request.SignUpRequest;
 import backend.src.auth.response.MessageResponse;
+import backend.src.exceptions.ValidationErrorResponse;
 import backend.src.user.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -29,9 +32,10 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<MessageResponse> registerUser(@Valid @RequestBody SignUpRequest signUpRequest){
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest){
         if (userService.existsUser(signUpRequest.getUserName()).equals(true)) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken"));
+            Map<String, String> fieldErrors = Map.of("userName", "Username is already taken");
+            return ResponseEntity.badRequest().body(new ValidationErrorResponse("Validation failed", fieldErrors));
         }
         authService.createUser(signUpRequest);
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
