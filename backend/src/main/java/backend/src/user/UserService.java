@@ -37,6 +37,9 @@ public class UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "name", name));
     }
 
+    public Boolean existsUser(String username){
+        return userRepository.existsByUsername(username);
+    }
 
     @Transactional(readOnly = true)
     public List<User> findAllUsersByAuthority(String auth){
