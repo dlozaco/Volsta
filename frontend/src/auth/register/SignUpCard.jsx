@@ -66,6 +66,7 @@ export default function SingUpCard() {
                 <Input
                   id="username"
                   type="text"
+                  required
                   {...register("username", { required: "Username is required" })}
                 />
                 {errors.username && (
@@ -77,6 +78,7 @@ export default function SingUpCard() {
                 <Input
                   id="firstName"
                   type="text"
+                  required
                   {...register("firstName", { required: "First name is required" })}
                 />
                 {errors.firstName && (
@@ -88,6 +90,7 @@ export default function SingUpCard() {
                 <Input
                   id="lastName"
                   type="text"
+                  required
                   {...register("lastName", { required: "Last name is required" })}
                 />
                 {errors.lastName && (
@@ -99,6 +102,7 @@ export default function SingUpCard() {
                 <Input
                   id="email"
                   type="email"
+                  required
                   {...register("email", { required: "Email is required" })}
                 />
                 {errors.email && (
@@ -109,7 +113,9 @@ export default function SingUpCard() {
                 <Label htmlFor="phone">Mobile number</Label>
                 <Input
                   id="phone"
-                  type="text"
+                  type="tel"
+                  required
+                  pattern="^\+?[0-9\s\-()]{7,15}$"
                   {...register("phone", { required: "Phone number is required" })}
                 />
                 {errors.phone && (
@@ -135,6 +141,7 @@ export default function SingUpCard() {
                 <Input
                   id="repeatPassword"
                   type="password"
+                  required
                   {...register("repeatPassword", {
                     required: "Repeat password is required",
                     validate: (value) =>
