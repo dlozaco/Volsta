@@ -263,15 +263,17 @@ function SidebarTrigger({
       data-sidebar="trigger"
       data-slot="sidebar-trigger"
       variant="ghost"
-      size="icon-sm"
-      className={cn(className)}
+      size="icon-lg"
+      className={cn("ml-4 mt-4",
+        "hover:bg-white/10 hover:text-white transition-colors cursor-pointer",
+         className)}
       onClick={(event) => {
         onClick?.(event)
         toggleSidebar()
       }}
       {...props}
     >
-      <PanelLeftIcon />
+      <PanelLeftIcon style={{ width: '200%', height: '200%' }}/>
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   )

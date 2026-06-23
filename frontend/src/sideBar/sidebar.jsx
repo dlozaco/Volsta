@@ -22,19 +22,19 @@ export function AppSidebar() {
         <Sidebar>
             <SidebarContent>
             <SidebarGroup>
-            <SidebarGroupLabel>
+            <SidebarGroupLabel className="text-lg font-bold mb-4 mt-2">
                 <Link to={'/'}>
                     Home
                 </Link>
             </SidebarGroupLabel>
             <SidebarGroupContent>
-                <SidebarMenu class='flex-row'>
+                <SidebarMenu className="flex-col gap-2">
                 {items.map((item) => (
                     <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
-                        <Link to={item.url}>
-                        <item.icon />
-                        <span>{item.title}</span>
+                    <SidebarMenuButton asChild className="h-7 text-lg">
+                        <Link to={item.url} className="flex items-center gap-2">
+                            <item.icon />
+                            <span>{item.title}</span>
                         </Link>
                     </SidebarMenuButton>
                     </SidebarMenuItem>
