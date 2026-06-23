@@ -16,7 +16,7 @@ public class SignUpRequest {
 
     private String firstName;
 
-    private String secondName;
+    private String lastName;
 
     @NotBlank(
             message = "Password can't be null"
