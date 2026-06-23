@@ -51,7 +51,7 @@ public class AuthService {
                 manager.setUser(user);
                 manager.setEmail(request.getEmail());
                 manager.setName(request.getFirstName());
-                manager.setSurname(request.getSecondName());
+                manager.setSurname(request.getLastName());
                 manager.setPhoneNumber(request.getPhoneNumber());
                 managerService.create(manager);
                 break;

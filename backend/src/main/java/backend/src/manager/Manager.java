@@ -5,6 +5,7 @@ import backend.src.team.Team;
 import backend.src.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,7 +34,11 @@ public class Manager extends BaseEntity {
 
     @NotNull
     @Column(unique = true)
-    @Size(max = 9)
+    @Size(min = 7, max = 15)
+    @Pattern(
+            regexp = "^\\+?[0-9\\s\\-()]{7,15}$",
+            message = "Phone number must have between 7 and 15 numbers"
+    )
     private String phoneNumber;
 
     @OneToMany

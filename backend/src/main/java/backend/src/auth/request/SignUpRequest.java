@@ -16,7 +16,7 @@ public class SignUpRequest {
 
     private String firstName;
 
-    private String secondName;
+    private String lastName;
 
     @NotBlank(
             message = "Password can't be null"
@@ -33,5 +33,10 @@ public class SignUpRequest {
     private String authority;
 
     private String email;
+
+    @Pattern(
+            regexp = "^\\+?[0-9\\s\\-()]{7,15}$",
+            message = "Phone number must have between 7 and 15 numbers"
+    )
     private String phoneNumber;
 }
