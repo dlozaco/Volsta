@@ -54,7 +54,7 @@ export default function Home() {
 
 
 const volleyballFeatures = [
-  { icon: <Users/>, title: "Roster Management", description: "Organize players by position (setters, hitters, liberos) and track active lineups." },
+  { icon: <Users/>, title: "Player Management", description: "Organize players by position (setters, hitters, liberos) and track active lineups." },
   { icon: <TrendingUp/>, title: "Match Analytics", description: "Track performance stats like kills, service aces, blocks, and dig percentages." },
   { icon: <Calendar/>, title: "Court Scheduling", description: "Coordinate matches and tournament timelines easily." },
 ];

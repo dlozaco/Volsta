@@ -52,8 +52,8 @@ export default function SingUpCard() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="min-h-screen w-full flex items-center justify-center">
+    <form onSubmit={handleSubmit(onSubmit)} className="-mt-24">
+      <div className="min-h-screen w-full flex items-center justify-center p-4">
         <Card className="w-full max-w-sm">
           <CardHeader>
             <CardTitle>Create an account</CardTitle>
