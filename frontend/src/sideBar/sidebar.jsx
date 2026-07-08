@@ -14,7 +14,7 @@ import {
 // Tus dos únicas rutas
 const items = [
   { title: "Login", url: "/login", icon: LogIn },
-  { title: "Sing Up", url: "/register", icon: UserPlus },
+  { title: "Sign Up", url: "/register", icon: UserPlus },
 ]
 
 export function AppSidebar() {
