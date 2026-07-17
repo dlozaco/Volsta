@@ -1,12 +1,11 @@
 package backend.src.user;
 
-import backend.src.exceptions.ResourceNotFoundException;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import backend.src.exceptions.ResourceNotFoundException;
 
 @Service
 public class AuthoritiesService {

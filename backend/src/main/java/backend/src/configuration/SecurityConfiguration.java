@@ -1,7 +1,8 @@
 package backend.src.configuration;
 
-import backend.src.configuration.jwt.AuthEntryPointJwt;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+import jakarta.servlet.DispatcherType;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,22 +15,22 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.RegexRequestMatcher;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.List;
+import backend.src.configuration.jwt.AuthEntryPointJwt;
+import backend.src.configuration.jwt.JwtAuthenticationFilter;
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfiguration {
 
-    private static final String ADMIN = "ADMIN";
-    private static final String MANAGER = "MANAGER";
-
-    @Autowired
-    private AuthEntryPointJwt unauthorizedHandler;
+    private final AuthEntryPointJwt unauthorizedHandler;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
@@ -38,18 +39,20 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .headers((headers) -> headers.frameOptions((frameOptions) -> frameOptions.disable()))
-                .exceptionHandling((exepciontHandling) -> exepciontHandling.authenticationEntryPoint(unauthorizedHandler))
+                .exceptionHandling((exceptionHandling) -> exceptionHandling.authenticationEntryPoint(unauthorizedHandler))
 
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers(request -> request.getRequestURI().matches("/")).permitAll()
-                        .requestMatchers(request -> request.getRequestURI().startsWith("/api/v1/auth")).permitAll()
-                        .requestMatchers(RegexRequestMatcher.regexMatcher("^(?!api|public|css|js|images|swagger|v3|h2-console)[^\\.]*")).permitAll()
-                        .requestMatchers(RegexRequestMatcher.regexMatcher("(.*\\..+)$")).permitAll()
+                    .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
+                        .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
+                    .requestMatchers("/error").permitAll()
+                        .requestMatchers("/api/v1/auth/login", "/api/v1/auth/signup").permitAll()
+                        .anyRequest().authenticated()
                 );
+
+        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
-
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {

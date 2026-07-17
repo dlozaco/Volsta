@@ -1,5 +1,10 @@
 package backend.src.auth;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
+
 import backend.src.auth.request.SignUpRequest;
 import backend.src.manager.Manager;
 import backend.src.manager.ManagerService;
@@ -8,12 +13,9 @@ import backend.src.user.AuthoritiesService;
 import backend.src.user.User;
 import backend.src.user.UserService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Validated
 public class AuthService {
 
     private final PasswordEncoder encoder;
@@ -21,7 +23,6 @@ public class AuthService {
     private final ManagerService managerService;
     private final UserService userService;
 
-    @Autowired
     public AuthService(PasswordEncoder encoder, AuthoritiesService authoritiesService, ManagerService managerService, UserService userService) {
         this.encoder = encoder;
         this.authoritiesService = authoritiesService;
