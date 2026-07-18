@@ -1,14 +1,17 @@
 package backend.src.notes;
 
-import backend.src.exceptions.ResourceNotFoundException;
-import jakarta.validation.Valid;
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
-import java.util.List;
+import backend.src.exceptions.ResourceNotFoundException;
+import jakarta.validation.Valid;
 
 @Service
+@Validated
 public class NotesService {
 
     private final NotesRepository notesRepository;

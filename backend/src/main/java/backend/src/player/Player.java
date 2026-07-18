@@ -1,9 +1,7 @@
 package backend.src.player;
 
 import backend.src.model.BaseEntity;
-import backend.src.user.User;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
