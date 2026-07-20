@@ -37,6 +37,7 @@ public class MatchSetService {
 
     @Transactional
     public MatchSet update(@Valid MatchSet matchSet, Integer id) {
+        // TODO Se tiene que comprobar si el que lo updatea es ??
         MatchSet existing = findById(id);
         BeanUtils.copyProperties(matchSet, existing, "id");
         return matchSetRepository.save(existing);
@@ -44,6 +45,7 @@ public class MatchSetService {
 
     @Transactional
     public void delete(Integer id) {
+        // TODO Se tiene que comprobar si el que lo borra es ??
         MatchSet matchSet = findById(id);
         matchSetRepository.delete(matchSet);
     }

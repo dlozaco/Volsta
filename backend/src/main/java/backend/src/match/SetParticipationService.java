@@ -47,6 +47,7 @@ public class SetParticipationService {
 
     @Transactional
     public SetParticipation update(@Valid SetParticipation setParticipation, Integer id) {
+        // TODO Se tiene que comprobar si el que lo updatea es ??
         SetParticipation existing = findById(id);
         BeanUtils.copyProperties(setParticipation, existing, "id");
         return setParticipationRepository.save(existing);
@@ -54,6 +55,7 @@ public class SetParticipationService {
 
     @Transactional
     public void delete(Integer id) {
+        // TODO Se tiene que comprobar si el que lo borra es ??
         SetParticipation setParticipation = findById(id);
         setParticipationRepository.delete(setParticipation);
     }

@@ -43,6 +43,7 @@ public class NotesService {
 
     @Transactional
     public Notes update(@Valid Notes notes, Integer id) {
+        // TODO Se tiene que comprobar si el que lo updatea es él propietario del equipo
         Notes existing = findById(id);
         BeanUtils.copyProperties(notes, existing, "id");
         return notesRepository.save(existing);
@@ -50,6 +51,7 @@ public class NotesService {
 
     @Transactional
     public void delete(Integer id) {
+        // TODO Se tiene que comprobar si el que lo updatea es él propietario del equipo
         Notes notes = findById(id);
         notesRepository.delete(notes);
     }

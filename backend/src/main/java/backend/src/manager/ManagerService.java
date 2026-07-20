@@ -56,6 +56,7 @@ public class ManagerService {
 
     @Transactional
     public Manager update(@Valid Manager manager, Integer id) {
+        // TODO Se tiene que comprobar si el que lo updatea es él mismo
         Manager existing = findById(id);
         BeanUtils.copyProperties(manager, existing, "id");
         return managerRepository.save(existing);
@@ -63,6 +64,7 @@ public class ManagerService {
 
     @Transactional
     public void delete(Integer id) {
+        // TODO Se tiene que comprobar si el que lo borra es él mismo
         Manager manager = findById(id);
         managerRepository.delete(manager);
     }

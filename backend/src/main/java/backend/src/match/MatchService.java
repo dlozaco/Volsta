@@ -58,6 +58,7 @@ public class MatchService {
 
     @Transactional
     public Match update(@Valid Match match, Integer id) {
+        // TODO Se tiene que comprobar si el que lo updatea es ??
         Match existing = findById(id);
         BeanUtils.copyProperties(match, existing, "id");
         return matchRepository.save(existing);
@@ -65,6 +66,7 @@ public class MatchService {
 
     @Transactional
     public void delete(Integer id) {
+        // TODO Se tiene que comprobar si el que lo borra es ??
         Match match = findById(id);
         matchRepository.delete(match);
     }

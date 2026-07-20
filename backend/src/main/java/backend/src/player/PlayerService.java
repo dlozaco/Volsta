@@ -54,6 +54,7 @@ public class PlayerService {
 
     @Transactional
     public Player update(@Valid Player player, Integer id) {
+        // TODO Se tiene que comprobar si el que lo updatea es propietario del equipo que pertenece el jugador
         Player existing = findById(id);
         BeanUtils.copyProperties(player, existing, "id");
         return playerRepository.save(existing);
@@ -61,6 +62,7 @@ public class PlayerService {
 
     @Transactional
     public void delete(Integer id) {
+        // TODO Se tiene que comprobar si el que lo borra es propietario del equipo que pertenece el jugador
         Player player = findById(id);
         playerRepository.delete(player);
     }
