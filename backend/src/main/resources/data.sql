@@ -5,13 +5,13 @@ INSERT INTO authorities(id, authority) VALUES
 
 -- Admin
 INSERT INTO app_user(id, username, password, authority) VALUES
-    (1, 'UserPrueba1', 'UserPrueba1', 1),
-    (2, 'UserPrueba2', 'UserPrueba2', 1);
+    (1, 'admin1', 'adminprueba1!', 1),
+    (2, 'admin2', 'adminprueba2!', 1);
 
 -- Manager
 INSERT INTO app_user(id, username, password, authority) VALUES
-    (3, 'UserPrueba3', 'UserPrueba3', 2),
-    (4, 'UserPrueba4', 'UserPrueba4', 2);
+    (3, 'manager1', 'manager1!', 2),
+    (4, 'manager2', 'manager2!', 2);
 
 INSERT INTO manager(id, name, surname, email, phone_number, user_id) VALUES
     (1, 'Manager1', 'Prueba1', 'manager@prueba.com', '111111111', 3),
