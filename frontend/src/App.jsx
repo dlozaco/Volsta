@@ -4,6 +4,7 @@ import SignIn from './auth/login/SignIn'
 import { SidebarProvider, SidebarTrigger } from '#components/ui/sidebar'
 import { AppSidebar } from './sideBar/sidebar'
 import Home from './homepage/Home'
+import TeamPage from './manager/teamEdit/TeamPage'
 import { AuthProvider, useAuth } from './auth/AuthContext'
 
 function ProtectedRoute({ children }) {
@@ -47,6 +48,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<PublicRoute><SignUp /></PublicRoute>} />
             <Route path="/login" element={<PublicRoute><SignIn /></PublicRoute>} />
+            <Route path="/teams/:name" element={<TeamPage />} />
           </Routes>
 
         </main>

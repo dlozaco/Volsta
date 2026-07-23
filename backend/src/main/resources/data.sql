@@ -4,14 +4,16 @@ INSERT INTO authorities(id, authority) VALUES
     (2, 'MANAGER');
 
 -- Admin
+-- password: Adminprueba1! y 2
 INSERT INTO app_user(id, username, password, authority) VALUES
-    (1, 'admin1', 'adminprueba1!', 1),
-    (2, 'admin2', 'adminprueba2!', 1);
+    (1, 'admin1', '$2b$10$BmaCz6sVPGjTcGDtni.M3u701mbsaAFxykvqlJuEXIz98f3VufENG', 1),
+    (2, 'admin2', '$2b$10$eXxI8eN7dttXCGJNdzVOnuQR507.FOPYk420A4uuZjWC9IKwvq.RW', 1);
 
 -- Manager
+-- password: Managerprueba1! y 2
 INSERT INTO app_user(id, username, password, authority) VALUES
-    (3, 'manager1', 'manager1!', 2),
-    (4, 'manager2', 'manager2!', 2);
+    (3, 'manager1', '$2b$10$4IERjXlNeLxReEZXtVizqOHKPeMYLWe46QDliynJJmsJ8/uUxaCFu', 2),
+    (4, 'manager2', '$2b$10$BbVzhUGEwndf3M8xW73zMeoan7G6S78HEHMtlU51qjZU/6z84Hx3i', 2);
 
 INSERT INTO manager(id, name, surname, email, phone_number, user_id) VALUES
     (1, 'Manager1', 'Prueba1', 'manager@prueba.com', '111111111', 3),
