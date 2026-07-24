@@ -1,7 +1,6 @@
 package backend.src.configuration;
 
 import java.util.List;
-import jakarta.servlet.DispatcherType;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +21,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import backend.src.configuration.jwt.AuthEntryPointJwt;
 import backend.src.configuration.jwt.JwtAuthenticationFilter;
+import jakarta.servlet.DispatcherType;
 import lombok.RequiredArgsConstructor;
 
 @Configuration
@@ -46,8 +46,8 @@ public class SecurityConfiguration {
                         .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/error").permitAll()
                         .requestMatchers("/api/v1/auth/login", "/api/v1/auth/signup").permitAll()
-                        .requestMatchers("/api/v1/managers").hasAuthority("ADMIN")
-                        .requestMatchers("/api/v1/profile/manager").hasAuthority("MANAGER")
+                        .requestMatchers("/api/v1/managers").hasRole("ADMIN")
+                        .requestMatchers("/api/v1/profile/manager").hasRole("MANAGER")
                         
                         .anyRequest().authenticated()
                 );
