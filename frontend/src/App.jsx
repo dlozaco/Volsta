@@ -5,6 +5,7 @@ import { SidebarProvider, SidebarTrigger } from '#components/ui/sidebar'
 import { AppSidebar } from './sideBar/sidebar'
 import Home from './homepage/Home'
 import TeamPage from './manager/teamEdit/TeamPage'
+import ManagerProfile from './manager/ManagerProfile'
 import { AuthProvider, useAuth } from './auth/AuthContext'
 
 function ProtectedRoute({ children }) {
@@ -49,6 +50,7 @@ function App() {
             <Route path="/register" element={<PublicRoute><SignUp /></PublicRoute>} />
             <Route path="/login" element={<PublicRoute><SignIn /></PublicRoute>} />
             <Route path="/teams/:name" element={<TeamPage />} />
+            <Route path="/profile" element={<ProtectedRoute><ManagerProfile /></ProtectedRoute>} />
           </Routes>
 
         </main>
