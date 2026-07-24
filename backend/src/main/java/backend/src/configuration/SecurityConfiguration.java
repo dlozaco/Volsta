@@ -44,8 +44,11 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                     .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
                         .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
-                    .requestMatchers("/error").permitAll()
+                        .requestMatchers("/error").permitAll()
                         .requestMatchers("/api/v1/auth/login", "/api/v1/auth/signup").permitAll()
+                        .requestMatchers("/api/v1/managers").hasAuthority("ADMIN")
+                        .requestMatchers("/api/v1/profile/manager").hasAuthority("MANAGER")
+                        
                         .anyRequest().authenticated()
                 );
 
