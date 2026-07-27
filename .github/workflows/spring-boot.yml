@@ -21,12 +21,29 @@ jobs:
     - name: Code checkout
       uses: actions/checkout@v4
 
+    - name: Load .env file
+      run: |
+        cat ../../backend/.env >> $GITHUB_ENV
+
+    - name: Start PostgreSQL
+      run: |
+        # Nota: Sustituye $DB_USER, $DB_PASSWORD y $DB_NAME por 
+        # los nombres exactos de las variables que tengas dentro de tu .env
+        docker run -d \
+          --name postgres-test \
+          -p 5432:5432 \
+          -e POSTGRES_USER=$DB_USER \
+          -e POSTGRES_PASSWORD=$DB_PASSWORD \
+          -e POSTGRES_DB=$DB_NAME \
+          postgres:15-alpine
+        
+        until docker exec postgres-test pg_isready; do sleep 1; done
+
     - name: Configure JDK 21
       uses: actions/setup-java@v4
       with:
         java-version: '21'
         distribution: 'temurin'
         cache: 'maven'
-
     - name: Compile and run tests
       run: mvn clean verify
