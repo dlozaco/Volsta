@@ -61,8 +61,8 @@ Módulo orientado a la creación, administración e inspección de los equipos d
 * **Descripción:** Como mánager, quiero editar el perfil de mi equipo (nombre, logo) para mantener nuestra identidad visual e información al día.
 * **Prioridad:** Media (Should Have)
 
-#### [US-TEAM-04] Exploración de equipos rivales (Mánager)
-* **Descripción:** Como mánager, quiero ver los detalles de otro equipo para analizar contra qué rivales me puedo enfrentar.
+#### [US-TEAM-04] Exploración de equipos rivales
+* **Descripción:** Como usuario, quiero ver los detalles de otro equipo para analizar contra qué rivales me puedo enfrentar.
 * **Prioridad:** Media (Should Have)
 
 #### [US-TEAM-05] Baja de equipo
