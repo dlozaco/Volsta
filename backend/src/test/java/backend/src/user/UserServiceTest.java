@@ -1,14 +1,17 @@
 package backend.src.user;
 
-import backend.src.exceptions.ResourceNotFoundException;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
+import backend.src.exceptions.ResourceNotFoundException;
 
 @SpringBootTest
 class UserServiceTest {
@@ -29,7 +32,7 @@ class UserServiceTest {
 
     @Test
     void shouldFindUserByName_RightName() {
-        String name = "UserPrueba1";
+        String name = "manager1";
         assertEquals(name, userService.findUserByName(name).getUsername());
     }
 
@@ -64,7 +67,7 @@ class UserServiceTest {
 
     @Test
     void shouldExistsUser_ValidName_ReturnsTrue(){
-        String rightName = "UserPrueba1";
+        String rightName = "manager1";
         assertEquals(true, userService.existsUser(rightName));
     }
 
