@@ -61,7 +61,7 @@ Módulo orientado a la creación, administración e inspección de los equipos d
 * **Descripción:** Como mánager, quiero editar el perfil de mi equipo (nombre, logo) para mantener nuestra identidad visual e información al día.
 * **Prioridad:** Media (Should Have)
 
-#### [US-TEAM-04] Exploración de equipos rivales
+#### [US-TEAM-04] Exploración de equipos rivales https://github.com/dlozaco/Volsta/issues/18
 * **Descripción:** Como usuario, quiero ver los detalles de otro equipo para analizar contra qué rivales me puedo enfrentar.
 * **Prioridad:** Media (Should Have)
 
