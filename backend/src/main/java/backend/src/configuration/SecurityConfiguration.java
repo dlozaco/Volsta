@@ -48,7 +48,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/v1/auth/login", "/api/v1/auth/signup").permitAll()
                         .requestMatchers("/api/v1/managers").hasRole("ADMIN")
                         .requestMatchers("/api/v1/profile/manager").hasRole("MANAGER")
-                        
+                        .requestMatchers("/api/v1/teams").permitAll()
                         .anyRequest().authenticated()
                 );
 
