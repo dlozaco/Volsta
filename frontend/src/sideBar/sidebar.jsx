@@ -31,11 +31,15 @@ export function AppSidebar() {
           <SidebarGroupContent>
             {user ? (
               <div className="px-2">
-                <div className="flex items-center gap-2 px-2 py-1.5 mb-2">
-                  <User className="size-4" />
-                  <span className="text-sm font-medium truncate">
-                    {user.username}
-                  </span>
+                <div className="flex items-center px-2 py-1.5 mb-2">
+                  <Button variant="ghost" className="w-full justify-start gap-2" asChild>
+                    <Link to="/profile" className="flex items-center gap-2">
+                      <User className="size-4" />
+                      <span className="text-sm font-medium truncate">
+                        {user.username}
+                      </span>
+                    </Link>
+                  </Button>
                 </div>
                 <Button
                   variant="ghost"
