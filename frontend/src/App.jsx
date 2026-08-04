@@ -7,6 +7,7 @@ import Home from './homepage/Home'
 import TeamPage from './manager/teamEdit/TeamPage'
 import ManagerProfile from './manager/ManagerProfile'
 import { AuthProvider, useAuth } from './auth/AuthContext'
+import Teams from './public/Teams'
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth()
@@ -49,6 +50,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<PublicRoute><SignUp /></PublicRoute>} />
             <Route path="/login" element={<PublicRoute><SignIn /></PublicRoute>} />
+            <Route path="/teams" element={<Teams />} />
             <Route path="/teams/:name" element={<TeamPage />} />
             <Route path="/profile" element={<ProtectedRoute><ManagerProfile /></ProtectedRoute>} />
           </Routes>

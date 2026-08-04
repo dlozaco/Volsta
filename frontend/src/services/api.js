@@ -64,25 +64,6 @@ export async function getMe(token) {
   return body
 }
 
-export async function getTeamPageByName(name, token) {
-  const res = await fetch(`${API_BASE}/api/v1/teams/name/${encodeURIComponent(name)}`, {
-    method: 'GET',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
-  })
-
-  const body = await res.json()
-
-  if (!res.ok) {
-    const error = new Error(body.message || 'Team not found')
-    error.status = res.status
-    throw error
-  }
-
-  return body
-}
-
 export async function getManagerProfile(token) {
   const res = await fetch(`${API_BASE}/api/v1/profile/manager`, {
     method: 'GET',

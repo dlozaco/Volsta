@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import { Card, CardContent, CardHeader, CardTitle } from '#components/ui/card'
 import { Button } from '#components/ui/button'
 import { useAuth } from '../../auth/AuthContext'
-import { getTeamPageByName } from '../../services/api'
+import { getTeamPageByName } from '@/services/team/teamApi'
 
 const positionLabels = {
     SETTER: 'Setter',
@@ -14,14 +14,14 @@ const positionLabels = {
 }
 
 export default function TeamPage() {
-    const { user, token, loading: authLoading } = useAuth()
+    const { token } = useAuth()
     const { name } = useParams()
     const [team, setTeam] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
 
     useEffect(() => {
-        if (!name || !token) return
+        if (!name) return
         setLoading(true)
         getTeamPageByName(name, token)
             .then(setTeam)
@@ -29,7 +29,7 @@ export default function TeamPage() {
             .finally(() => setLoading(false))
     }, [name, token])
 
-    if (authLoading || loading) {
+    if (loading) {
         return <div className="flex items-center justify-center min-h-screen">Loading...</div>
     }
 
@@ -42,9 +42,14 @@ export default function TeamPage() {
                         We could not load this team page.
                     </p>
                 </div>
-                <Button variant="outline" asChild>
-                    <Link to="/">Back to home</Link>
-                </Button>
+                <div className="flex gap-2">
+                    <Button variant="outline" asChild>
+                        <Link to="/teams">All teams</Link>
+                    </Button>
+                    <Button variant="outline" asChild>
+                        <Link to="/">Home</Link>
+                    </Button>
+                </div>
             </div>
         )
     }
@@ -60,9 +65,14 @@ export default function TeamPage() {
                         <p className="text-sm text-muted-foreground">Founded on {team.foundationDate}</p>
                     )}
                 </div>
-                <Button variant="outline" asChild>
-                    <Link to="/">Back to home</Link>
-                </Button>
+                <div className="flex gap-2">
+                    <Button variant="outline" asChild>
+                        <Link to="/teams">All teams</Link>
+                    </Button>
+                    <Button variant="outline" asChild>
+                        <Link to="/">Home</Link>
+                    </Button>
+                </div>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
