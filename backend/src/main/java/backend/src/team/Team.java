@@ -1,10 +1,13 @@
 package backend.src.team;
 
+import backend.src.manager.Manager;
 import backend.src.match.Match;
 import backend.src.model.BaseEntity;
 import backend.src.player.Player;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -32,6 +35,10 @@ public class Team extends BaseEntity {
     private LocalDate foundationDate;
 
     private String logoUrl;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private Manager owner;
 
     @OneToMany
     List<Player> players;
