@@ -5,7 +5,12 @@ import { SidebarProvider, SidebarTrigger } from '#components/ui/sidebar'
 import { AppSidebar } from './sideBar/sidebar'
 import Home from './homepage/Home'
 import TeamPage from './manager/teamEdit/TeamPage'
+import TeamCreate from './manager/teamCreate/TeamCreate'
+import Dashboard from './manager/dashboard/Dashboard'
 import ManagerProfile from './manager/ManagerProfile'
+import Matches from './public/Matches'
+import MatchDetail from './public/MatchDetail'
+import MatchCreate from './manager/matchCreate/MatchCreate'
 import { AuthProvider, useAuth } from './auth/AuthContext'
 import Teams from './public/Teams'
 
@@ -51,7 +56,12 @@ function App() {
             <Route path="/register" element={<PublicRoute><SignUp /></PublicRoute>} />
             <Route path="/login" element={<PublicRoute><SignIn /></PublicRoute>} />
             <Route path="/teams" element={<Teams />} />
+            <Route path="/teams/new" element={<ProtectedRoute><TeamCreate /></ProtectedRoute>} />
             <Route path="/teams/:name" element={<TeamPage />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/matches" element={<Matches />} />
+            <Route path="/matches/new" element={<ProtectedRoute><MatchCreate /></ProtectedRoute>} />
+            <Route path="/matches/:id" element={<MatchDetail />} />
             <Route path="/profile" element={<ProtectedRoute><ManagerProfile /></ProtectedRoute>} />
           </Routes>
 
