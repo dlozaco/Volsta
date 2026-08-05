@@ -25,6 +25,9 @@ public class SetParticipation extends BaseEntity {
     private int points;
 
     @NotNull
+    private int faults;
+
+    @NotNull
     @ManyToOne
     private Player player;
 

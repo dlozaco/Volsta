@@ -29,6 +29,6 @@ public class MatchSet extends BaseEntity {
     @NotNull
     private int visitorTeamScore;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "matchSet", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SetParticipation> setParticipations;
 }

@@ -9,4 +9,6 @@ public interface MatchRepository extends JpaRepository<Match, Integer> {
     List<Match> findByMatchType(MatchType matchType);
 
     List<Match> findByLocalTeamIdOrVisitorTeamId(Integer localTeamId, Integer visitorTeamId);
+
+    boolean existsByLocalTeamIdOrVisitorTeamId(Integer localTeamId, Integer visitorTeamId);
 }
