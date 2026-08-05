@@ -118,8 +118,8 @@ export default function MatchDetail() {
     Object.values(rosters).forEach(team => {
         ;(team.players || []).forEach(p => { playerTeamNames[p.id] = team.name })
     })
-    const canAddSet = canEdit && match.played
-    const canReschedule = canEdit && !match.played
+const canAddSet = canEdit
+const canReschedule = canEdit && !match.played
 
     const saveReschedule = async (e) => {
         e.preventDefault()
