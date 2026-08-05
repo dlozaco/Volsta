@@ -2,7 +2,7 @@ package backend.src.notes;
 
 import backend.src.exceptions.ResourceNotFoundException;
 import backend.src.player.Player;
-import backend.src.player.PlayerService;
+import backend.src.player.PlayerRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,17 +14,17 @@ import static org.junit.jupiter.api.Assertions.*;
 class NotesServiceTest {
 
     private final NotesService notesService;
-    private final PlayerService playerService;
+    private final PlayerRepository playerRepository;
 
     @Autowired
-    public NotesServiceTest(NotesService notesService, PlayerService playerService) {
+    public NotesServiceTest(NotesService notesService, PlayerRepository playerRepository) {
         this.notesService = notesService;
-        this.playerService = playerService;
+        this.playerRepository = playerRepository;
     }
 
     @Test
     void shouldFindAllNotes() {
-        assertEquals(8, notesService.findAll().size());
+        assertEquals(12, notesService.findAll().size());
     }
 
     @Test
@@ -40,14 +40,14 @@ class NotesServiceTest {
 
     @Test
     void shouldFindNotesByPlayerId() {
-        assertEquals(1, notesService.findByPlayerId(1).size());
+        assertEquals(2, notesService.findByPlayerId(1).size());
     }
 
     @Test
     @Transactional
     void shouldCreateNotes_ReturnsOk() {
         int count = notesService.findAll().size();
-        Player player = playerService.findById(1);
+        Player player = playerRepository.findById(1).orElseThrow();
 
         Notes notes = new Notes();
         notes.setSubject("Test subject");
@@ -74,7 +74,7 @@ class NotesServiceTest {
     @Transactional
     void shouldDeleteNotes_ReturnsVoid() {
         int count = notesService.findAll().size();
-        Player player = playerService.findById(1);
+        Player player = playerRepository.findById(1).orElseThrow();
 
         Notes notes = new Notes();
         notes.setSubject("Temp");

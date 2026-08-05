@@ -2,7 +2,7 @@ package backend.src.match;
 
 import backend.src.exceptions.ResourceNotFoundException;
 import backend.src.player.Player;
-import backend.src.player.PlayerService;
+import backend.src.player.PlayerRepository;
 import backend.src.player.PositionType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,25 +15,26 @@ import static org.junit.jupiter.api.Assertions.*;
 class SetParticipationServiceTest {
 
     private final SetParticipationService setParticipationService;
-    private final PlayerService playerService;
+    private final PlayerRepository playerRepository;
     private final MatchSetService matchSetService;
 
     @Autowired
-    public SetParticipationServiceTest(SetParticipationService setParticipationService, PlayerService playerService, MatchSetService matchSetService) {
+    public SetParticipationServiceTest(SetParticipationService setParticipationService, PlayerRepository playerRepository, MatchSetService matchSetService) {
         this.setParticipationService = setParticipationService;
-        this.playerService = playerService;
+        this.playerRepository = playerRepository;
         this.matchSetService = matchSetService;
     }
 
     @Test
     void shouldFindAllSetParticipations() {
-        assertEquals(20, setParticipationService.findAll().size());
+        assertEquals(144, setParticipationService.findAll().size());
     }
 
     @Test
     void shouldFindSetParticipationById_RightId() {
         SetParticipation sp = setParticipationService.findById(1);
         assertEquals(8, sp.getPoints());
+        assertEquals(2, sp.getFaults());
     }
 
     @Test
@@ -43,19 +44,19 @@ class SetParticipationServiceTest {
 
     @Test
     void shouldFindByPlayerId() {
-        assertEquals(4, setParticipationService.findByPlayerId(1).size());
+        assertEquals(12, setParticipationService.findByPlayerId(1).size());
     }
 
     @Test
     void shouldFindByMatchSetId() {
-        assertEquals(4, setParticipationService.findByMatchSetId(1).size());
+        assertEquals(12, setParticipationService.findByMatchSetId(1).size());
     }
 
     @Test
     @Transactional
     void shouldCreateSetParticipation_ReturnsOk() {
         int count = setParticipationService.findAll().size();
-        Player player = playerService.findById(1);
+        Player player = playerRepository.findById(1).orElseThrow();
         MatchSet matchSet = matchSetService.findById(1);
 
         SetParticipation sp = new SetParticipation();
@@ -84,7 +85,7 @@ class SetParticipationServiceTest {
     @Transactional
     void shouldDeleteSetParticipation_ReturnsVoid() {
         int count = setParticipationService.findAll().size();
-        Player player = playerService.findById(2);
+        Player player = playerRepository.findById(2).orElseThrow();
         MatchSet matchSet = matchSetService.findById(1);
 
         SetParticipation sp = new SetParticipation();

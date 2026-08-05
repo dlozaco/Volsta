@@ -2,6 +2,10 @@ package backend.src.team;
 
 import backend.src.configuration.jwt.CustomUserDetailsService;
 import backend.src.configuration.jwt.JwtUtil;
+import backend.src.configuration.jwt.TokenBlacklistService;
+import backend.src.exceptions.ResourceNotFoundException;
+import backend.src.security.CurrentUserService;
+import backend.src.team.dto.TeamResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,7 +16,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -32,26 +35,27 @@ class TeamControllerTest {
     private TeamService teamService;
 
     @MockitoBean
+    private CurrentUserService currentUserService;
+
+    @MockitoBean
     private JwtUtil jwtUtil;
 
     @MockitoBean
     private CustomUserDetailsService customUserDetailsService;
 
+    @MockitoBean
+    private TokenBlacklistService tokenBlacklistService;
+
 
     @Test
     @WithMockUser
     void getAllTeams_ReturnsTeamPage() throws Exception {
-        Team team1 = new Team();
-        team1.setId(1);
-        team1.setName("Real Madrid");
+        TeamResponse team1 = new TeamResponse(1, "Real Madrid", null, null, null, List.of(), 0);
+        TeamResponse team2 = new TeamResponse(2, "Barcelona", null, null, null, List.of(), 0);
 
-        Team team2 = new Team();
-        team2.setId(2);
-        team2.setName("Barcelona");
-
-        List<Team> teams = Arrays.asList(team1, team2);
+        List<TeamResponse> teams = List.of(team1, team2);
         Pageable pageable = PageRequest.of(0, 10);
-        Page<Team> teamPage = new PageImpl<>(teams, pageable, teams.size());
+        Page<TeamResponse> teamPage = new PageImpl<>(teams, pageable, teams.size());
 
         when(teamService.findAll(any(Pageable.class))).thenReturn(teamPage);
 
@@ -68,9 +72,7 @@ class TeamControllerTest {
     @Test
     @WithMockUser
     void getTeamById_ExistsId_shouldReturnTeam() throws Exception {
-        Team team = new Team();
-        team.setId(1);
-        team.setName("Arsenal");
+        TeamResponse team = new TeamResponse(1, "Arsenal", null, null, null, List.of(), 0);
 
         when(teamService.findById(1)).thenReturn(team);
 
@@ -83,7 +85,7 @@ class TeamControllerTest {
     @Test
     @WithMockUser
     void getTeamById_NotExistingId_shouldReturnsNotFound() throws Exception {
-        when(teamService.findById(99)).thenReturn(null);
+        when(teamService.findById(99)).thenThrow(new ResourceNotFoundException("Team", "id", 99));
 
         mockMvc.perform(get("/api/v1/teams/99"))
                 .andExpect(status().isNotFound());
@@ -92,9 +94,7 @@ class TeamControllerTest {
     @Test
     @WithMockUser
     void getTeamByName_ExistsTeam_shouldReturnsTeam() throws Exception {
-        Team team = new Team();
-        team.setId(3);
-        team.setName("Liverpool");
+        TeamResponse team = new TeamResponse(3, "Liverpool", null, null, null, List.of(), 0);
 
         when(teamService.findByName("Liverpool")).thenReturn(team);
 
@@ -106,8 +106,8 @@ class TeamControllerTest {
 
     @Test
     @WithMockUser
-    void getTeamByName_NotExistingTeam_shouldReturnTeam() throws Exception {
-        when(teamService.findByName("Desconocido")).thenReturn(null);
+    void getTeamByName_NotExistingTeam_shouldReturnNotFound() throws Exception {
+        when(teamService.findByName("Desconocido")).thenThrow(new ResourceNotFoundException("Team", "name", "Desconocido"));
 
         mockMvc.perform(get("/api/v1/teams/name/Desconocido"))
                 .andExpect(status().isNotFound());
