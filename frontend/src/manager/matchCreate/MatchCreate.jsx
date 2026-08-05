@@ -6,8 +6,7 @@ import { Input } from '#components/ui/input'
 import { Label } from '#components/ui/label'
 import { CalendarPlus } from 'lucide-react'
 import { useAuth } from '../../auth/AuthContext'
-import { getAllTeams } from '@/services/team/teamApi'
-import { getMyTeams } from '@/services/team/teamApi'
+import { getAllTeams, getMyTeams } from '@/services/team/teamApi'
 import { createMatch } from '@/services/match/matchApi'
 
 export default function MatchCreate() {
