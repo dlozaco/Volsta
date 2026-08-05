@@ -47,7 +47,14 @@ async function request(path, { method = 'GET', body, auth = true } = {}) {
   }
 
   const text = await res.text()
-  const data = text ? JSON.parse(text) : null
+  let data = null
+  if (text) {
+    try {
+      data = JSON.parse(text)
+    } catch {
+      data = null
+    }
+  }
 
   if (!res.ok) {
     const error = new Error(data?.message || 'Request failed')
