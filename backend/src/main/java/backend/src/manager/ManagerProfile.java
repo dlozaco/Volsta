@@ -6,5 +6,6 @@ public record ManagerProfile(String name,
                              String surname,
                              String email,
                              String phoneNumber,
+                             String photoUrl,
                              List<String> teams) {
 }
