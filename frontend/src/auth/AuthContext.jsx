@@ -17,6 +17,7 @@ export function AuthProvider({ children }) {
       .catch(() => {
         setToken(null)
         setTokenState(null)
+        setUser(null)
       })
       .finally(() => setLoading(false))
   }, [token])
