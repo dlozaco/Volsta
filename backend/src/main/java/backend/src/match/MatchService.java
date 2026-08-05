@@ -114,9 +114,7 @@ public class MatchService {
         authorizeMatchWrite(match.getMatchType(), match.getLocalTeam().getId(), match.getVisitorTeam().getId(), user);
 
         match.setStartMoment(request.startMoment());
-        if (request.place() != null && !request.place().isBlank()) {
-            match.setPlace(request.place());
-        }
+        match.setPlace(request.place() == null || request.place().isBlank() ? null : request.place());
 
         return MatchResponse.from(matchRepository.save(match));
     }
