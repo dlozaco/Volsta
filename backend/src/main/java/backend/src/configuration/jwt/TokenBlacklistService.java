@@ -14,13 +14,17 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class TokenBlacklistService {
 
-    private static final long DEFAULT_TTL_SECONDS = 86_400;
-
+    private final JwtProperties jwtProperties;
     private final Map<String, Instant> blacklist = new ConcurrentHashMap<>();
+
+    public TokenBlacklistService(JwtProperties jwtProperties) {
+        this.jwtProperties = jwtProperties;
+    }
 
     public void blacklist(String token) {
         if (token != null && !token.isBlank()) {
-            blacklist.put(token, Instant.now().plusSeconds(DEFAULT_TTL_SECONDS));
+            long ttlSeconds = Math.max(1, (jwtProperties.getExpiration() + 999) / 1000);
+            blacklist.put(token, Instant.now().plusSeconds(ttlSeconds));
         }
     }
 
