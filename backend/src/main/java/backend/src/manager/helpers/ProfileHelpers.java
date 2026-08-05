@@ -15,6 +15,7 @@ public class ProfileHelpers {
                 manager.getSurname(),
                 manager.getEmail(),
                 manager.getPhoneNumber(),
+                manager.getPhotoUrl(),
                 teams
         ));
     }

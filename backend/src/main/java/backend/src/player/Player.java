@@ -31,4 +31,10 @@ public class Player extends BaseEntity {
     @NotNull
     private PositionType corePosition;
 
+    /**
+     * Soft delete flag (US-PLAY-03). When a player is deactivated their
+     * historical statistics are kept but they disappear from the active roster.
+     */
+    private boolean active = true;
+
 }

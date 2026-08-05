@@ -1,9 +1,16 @@
 package backend.src.player;
 
+import backend.src.exceptions.BusinessException;
 import backend.src.exceptions.ResourceNotFoundException;
+import backend.src.manager.Manager;
+import backend.src.manager.ManagerRepository;
+import backend.src.player.dto.PlayerRequest;
+import backend.src.player.dto.PlayerSummary;
+import backend.src.player.dto.PlayerUpdateRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,96 +19,95 @@ import static org.junit.jupiter.api.Assertions.*;
 class PlayerServiceTest {
 
     private final PlayerService playerService;
+    private final ManagerRepository managerRepository;
 
     @Autowired
-    public PlayerServiceTest(PlayerService playerService) {
+    public PlayerServiceTest(PlayerService playerService, ManagerRepository managerRepository) {
         this.playerService = playerService;
+        this.managerRepository = managerRepository;
+    }
+
+    private Manager ownerOfTeam1() {
+        return managerRepository.findById(1).orElseThrow();
+    }
+
+    private Manager ownerOfTeam2() {
+        return managerRepository.findById(2).orElseThrow();
     }
 
     @Test
-    void shouldFindAllPlayers() {
-        assertEquals(12, playerService.findAll().size());
+    @Transactional
+    void shouldListActivePlayersByTeam() {
+        assertEquals(6, playerService.listByTeam(1).size());
     }
 
     @Test
+    @Transactional
     void shouldFindPlayerById_RightId() {
-        Player player = playerService.findById(1);
-        assertEquals("David Lozano", player.getName());
+        PlayerSummary player = playerService.findById(1);
+        assertEquals("David Lozano", player.name());
     }
 
     @Test
+    @Transactional
     void shouldFindPlayerById_WrongId_ReturnsResourceNotFound() {
         assertThrows(ResourceNotFoundException.class, () -> playerService.findById(-1));
     }
 
     @Test
-    void shouldFindPlayerByEmail_RightEmail() {
-        Player player = playerService.findByEmail("david.lozano@quokka.es");
-        assertEquals(1, player.getId());
-    }
+    @Transactional
+    void shouldCreatePlayer_AsOwner_ReturnsOk() {
+        PlayerRequest request = new PlayerRequest("Test", "User", "test.user@test.com", 99, PositionType.LIBERO);
 
-    @Test
-    void shouldFindPlayerByEmail_WrongEmail_ReturnsResourceNotFound() {
-        assertThrows(ResourceNotFoundException.class, () -> playerService.findByEmail("nobody@test.com"));
-    }
+        PlayerSummary created = playerService.create(1, request, ownerOfTeam1());
 
-    @Test
-    void shouldFindPlayerByName_RightName() {
-        Player player = playerService.findByName("David Lozano");
-        assertEquals(1, player.getId());
-    }
-
-    @Test
-    void shouldFindPlayerByName_WrongName_ReturnsResourceNotFound() {
-        assertThrows(ResourceNotFoundException.class, () -> playerService.findByName("Wrong name"));
-    }
-
-    @Test
-    void shouldFindByCorePosition() {
-        assertEquals(4, playerService.findByCorePosition(PositionType.MIDDLE_BLOCKER).size());
+        assertNotNull(created.id());
+        assertEquals(7, playerService.listByTeam(1).size());
     }
 
     @Test
     @Transactional
-    void shouldCreatePlayer_ReturnsOk() {
-        int count = playerService.findAll().size();
+    void shouldRejectCreatePlayer_RepeatedDorsal() {
+        PlayerRequest request = new PlayerRequest("Test", "User", "test.user@test.com", 10, PositionType.LIBERO);
 
-        Player player = new Player();
-        player.setName("Test");
-        player.setSurname("User");
-        player.setEmail("test.user@test.com");
-        player.setCorePosition(PositionType.LIBERO);
-        playerService.create(player);
-
-        assertNotNull(player.getId());
-        assertEquals(count + 1, playerService.findAll().size());
+        assertThrows(BusinessException.class, () -> playerService.create(1, request, ownerOfTeam1()));
     }
 
     @Test
     @Transactional
-    void shouldUpdatePlayer_RightId_ReturnsOk() {
-        Player player = playerService.findById(1);
-        player.setName("UpdatedName");
-        playerService.update(player, 1);
+    void shouldRejectCreatePlayer_NonOwner() {
+        PlayerRequest request = new PlayerRequest("Test", "User", "test.user@test.com", 99, PositionType.LIBERO);
 
-        Player updated = playerService.findById(1);
-        assertEquals("UpdatedName", updated.getName());
+        assertThrows(AccessDeniedException.class, () -> playerService.create(1, request, ownerOfTeam2()));
     }
 
     @Test
     @Transactional
-    void shouldDeletePlayer_ReturnsVoid() {
-        int count = playerService.findAll().size();
+    void shouldUpdatePlayer_AsOwner_ReturnsOk() {
+        PlayerUpdateRequest request = new PlayerUpdateRequest("Updated", "Name", "david.lozano@quokka.es", 10, PositionType.SETTER);
 
-        Player player = new Player();
-        player.setName("Temp");
-        player.setSurname("Player");
-        player.setEmail("temp.player@test.com");
-        player.setCorePosition(PositionType.SETTER);
-        playerService.create(player);
+        PlayerSummary updated = playerService.update(1, request, ownerOfTeam1());
 
-        assertEquals(count + 1, playerService.findAll().size());
-        playerService.delete(player.getId());
-        assertEquals(count, playerService.findAll().size());
+        assertEquals("Updated", updated.name());
+        assertEquals("Updated", playerService.findById(1).name());
+    }
+
+    @Test
+    @Transactional
+    void shouldRejectUpdatePlayer_NonOwner() {
+        PlayerUpdateRequest request = new PlayerUpdateRequest("Hacked", "Name", "david.lozano@quokka.es", 10, PositionType.SETTER);
+
+        assertThrows(AccessDeniedException.class, () -> playerService.update(1, request, ownerOfTeam2()));
+    }
+
+    @Test
+    @Transactional
+    void shouldSoftDeletePlayer_RemovesFromActiveRoster() {
+        assertEquals(6, playerService.listByTeam(1).size());
+
+        playerService.softDelete(1, ownerOfTeam1());
+
+        assertEquals(5, playerService.listByTeam(1).size());
+        assertFalse(playerService.findById(1).active());
     }
 }

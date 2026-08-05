@@ -19,6 +19,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import backend.src.configuration.jwt.AccessDeniedHandlerJwt;
 import backend.src.configuration.jwt.AuthEntryPointJwt;
 import backend.src.configuration.jwt.JwtAuthenticationFilter;
 import jakarta.servlet.DispatcherType;
@@ -30,6 +31,7 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfiguration {
 
     private final AuthEntryPointJwt unauthorizedHandler;
+    private final AccessDeniedHandlerJwt accessDeniedHandler;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
@@ -39,7 +41,9 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .headers((headers) -> headers.frameOptions((frameOptions) -> frameOptions.disable()))
-                .exceptionHandling((exceptionHandling) -> exceptionHandling.authenticationEntryPoint(unauthorizedHandler))
+                .exceptionHandling((exceptionHandling) -> exceptionHandling
+                        .authenticationEntryPoint(unauthorizedHandler)
+                        .accessDeniedHandler(accessDeniedHandler))
 
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                     .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
@@ -48,7 +52,15 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/v1/auth/login", "/api/v1/auth/signup").permitAll()
                         .requestMatchers("/api/v1/managers").hasRole("ADMIN")
                         .requestMatchers("/api/v1/profile/manager").hasRole("MANAGER")
-                        .requestMatchers("/api/v1/teams/**").permitAll()
+                        .requestMatchers("/api/v1/auth/logout", "/api/v1/auth/me", "/api/v1/profile/password").authenticated()
+                        // `/api/v1/teams/my` requires an authenticated manager. This must
+                        // be checked before the generic `teams/**` permitAll rule.
+                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/teams/my").hasRole("MANAGER")
+                        .requestMatchers(org.springframework.http.HttpMethod.PUT, "/api/v1/teams/**").hasRole("MANAGER")
+                        .requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/v1/teams/**").hasRole("MANAGER")
+                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/teams/**").permitAll()
+                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/matches/**").permitAll()
+                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/players/**").permitAll()
                         .anyRequest().authenticated()
                 );
 

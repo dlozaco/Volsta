@@ -40,7 +40,9 @@ public class Manager extends BaseEntity {
     )
     private String phoneNumber;
 
-    @OneToMany
+    private String photoUrl;
+
+    @OneToMany(mappedBy = "owner")
     List<Team> teams;
 
     @OneToOne

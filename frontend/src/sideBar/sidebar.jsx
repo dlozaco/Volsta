@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { LogIn, UserPlus, LogOut, User } from "lucide-react"
+import { LogIn, UserPlus, LogOut, User, LayoutDashboard, CalendarDays, Shield } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -16,6 +16,12 @@ import { Button } from "@/components/ui/button"
 const authItems = [
   { title: "Login", url: "/login", icon: LogIn },
   { title: "Sign Up", url: "/register", icon: UserPlus },
+]
+
+const navItems = [
+  { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
+  { title: "Teams", url: "/teams", icon: Shield },
+  { title: "Matches", url: "/matches", icon: CalendarDays },
 ]
 
 export function AppSidebar() {
@@ -41,6 +47,18 @@ export function AppSidebar() {
                     </Link>
                   </Button>
                 </div>
+                <SidebarMenu className="flex-col gap-2">
+                  {navItems.map((item) => (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton asChild className="h-7 text-lg">
+                        <Link to={item.url} className="flex items-center gap-2">
+                          <item.icon />
+                          <span>{item.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
                 <Button
                   variant="ghost"
                   className="w-full justify-start gap-2"

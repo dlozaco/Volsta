@@ -2,7 +2,10 @@ import { getAllTeams } from "@/services/team/teamApi";
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "#components/ui/card";
 import { Skeleton } from "#components/ui/skeleton";
+import { Button } from "#components/ui/button";
 import { Link } from "react-router-dom";
+import { Plus } from "lucide-react";
+import { useAuth } from "../auth/AuthContext";
 
 function TeamCard({ team }) {
   const initial = team.name?.charAt(0).toUpperCase() || "?";
@@ -55,17 +58,19 @@ function TeamCardSkeleton() {
 }
 
 export default function Teams() {
+  const { user, isManager } = useAuth();
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setLoading(true);
+    let cancelled = false
     getAllTeams()
-      .then((data) => setTeams(data.content || data))
-      .catch((err) => setError(err))
-      .finally(() => setLoading(false));
-  }, []);
+      .then(data => { if (!cancelled) setTeams(data) })
+      .catch(err => { if (!cancelled) setError(err) })
+      .finally(() => { if (!cancelled) setLoading(false) })
+    return () => { cancelled = true }
+  }, [])
 
   if (loading) {
     return (
@@ -75,7 +80,7 @@ export default function Teams() {
           <p className="text-sm text-muted-foreground">Loading teams...</p>
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {Array.from({ length: 4 }).map((_, i) => (
+          {Array.from({ length: 8 }).map((_, i) => (
             <TeamCardSkeleton key={i} />
           ))}
         </div>
@@ -104,15 +109,23 @@ export default function Teams() {
 
   return (
     <div className="space-y-6">
-      <div className="space-y-1">
-        <h1 className="text-2xl font-bold">Teams</h1>
-        <p className="text-sm text-muted-foreground">{teams.length} team{teams.length !== 1 ? "s" : ""}</p>
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="space-y-1">
+          <h1 className="text-2xl font-bold">Teams</h1>
+          <p className="text-sm text-muted-foreground">{teams.length} team{teams.length !== 1 ? 's' : ''}</p>
+        </div>
+        {user && isManager && (
+          <Button size="sm" asChild>
+            <Link to="/teams/new"><Plus className="size-3" /> Create team</Link>
+          </Button>
+        )}
       </div>
+
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {teams.map((team) => (
-            <Link key={team.id} to={`/teams/${encodeURIComponent(team.name)}`} className="block">
-                <TeamCard team={team} />
-            </Link>
+          <Link key={team.id} to={`/teams/${encodeURIComponent(team.name)}`} className="block">
+            <TeamCard team={team} />
+          </Link>
         ))}
       </div>
     </div>

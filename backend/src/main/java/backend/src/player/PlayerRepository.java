@@ -14,4 +14,6 @@ public interface PlayerRepository extends JpaRepository<Player, Integer> {
     List<Player> findByCorePosition(PositionType corePosition);
 
     Optional<Player> findByName(@NotBlank String name);
+
+    boolean existsByEmail(String email);
 }

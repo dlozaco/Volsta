@@ -1,40 +1,38 @@
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'
+import { http } from '../http'
 
-export async function getAllTeams(){
-    const res = await fetch(`${API_BASE}/api/v1/teams`, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
-    })
+// ---------- TEAMS ----------
 
-    const body = await res.json()
-
-    if(!res.ok){
-        const error = new Error(body.message || 'Failed to get all teams')
-        error.status = res.status
-        throw error
-    }
-
-    return body
+export async function getAllTeams() {
+  const data = await http.get('/api/v1/teams', { auth: false })
+  // The backend returns a Spring `Page<TeamResponse>` for this endpoint.
+  // Normalize to an array: prefer `content` when present, otherwise assume the
+  // response is already an array. Return an empty array as a safe default.
+  if (Array.isArray(data)) return data
+  return data?.content ?? []
 }
 
+export async function getTeamById(id) {
+  return http.get(`/api/v1/teams/${id}`, { auth: false })
+}
 
-export async function getTeamPageByName(name, token) {
-  const headers = { 'Content-Type': 'application/json' }
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`
-  }
-  const res = await fetch(`${API_BASE}/api/v1/teams/name/${encodeURIComponent(name)}`, {
-    method: 'GET',
-    headers,
-  })
+export async function getTeamByName(name) {
+  return http.get(`/api/v1/teams/name/${encodeURIComponent(name)}`, { auth: false })
+}
 
-  const body = await res.json()
+export async function getMyTeams() {
+  const data = await http.get('/api/v1/teams/my', { auth: true })
+  if (Array.isArray(data)) return data
+  return data?.content ?? []
+}
 
-  if (!res.ok) {
-    const error = new Error(body.message || 'Team not found')
-    error.status = res.status
-    throw error
-  }
+export async function createTeam(data) {
+  return http.post('/api/v1/teams', data, { auth: true })
+}
 
-  return body
+export async function updateTeam(id, data) {
+  return http.put(`/api/v1/teams/${id}`, data, { auth: true })
+}
+
+export async function deleteTeam(id) {
+  return http.del(`/api/v1/teams/${id}`, { auth: true })
 }

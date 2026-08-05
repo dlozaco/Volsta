@@ -47,11 +47,13 @@ public class Match extends BaseEntity {
         List<Integer> res = new ArrayList<>();
         res.add(0);
         res.add(0);
-        for(MatchSet set: this.sets){
-            if (set.getLocalTeamScore() > set.getVisitorTeamScore()){
-                res.addFirst(res.getFirst() + 1);
-            } else{
-                res.add(1, res.get(1) + 1);
+        if (this.sets != null) {
+            for (MatchSet set : this.sets) {
+                if (set.getLocalTeamScore() > set.getVisitorTeamScore()){
+                    res.set(0, res.get(0) + 1);
+                } else{
+                    res.set(1, res.get(1) + 1);
+                }
             }
         }
         return res;
