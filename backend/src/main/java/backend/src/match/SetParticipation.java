@@ -6,6 +6,7 @@ import backend.src.player.PositionType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,10 +22,10 @@ public class SetParticipation extends BaseEntity {
     @NotNull
     private PositionType positionType;
 
-    @NotNull
+    @PositiveOrZero
     private int points;
 
-    @NotNull
+    @PositiveOrZero
     private int faults;
 
     @NotNull

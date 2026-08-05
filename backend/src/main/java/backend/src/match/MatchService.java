@@ -20,10 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Validated
@@ -295,16 +292,23 @@ public class MatchService {
         private int totalPoints;
         private int totalFaults;
         private final Map<PositionType, Boolean> positions = new LinkedHashMap<>();
+        private final Set<Integer> uniqueSets = new HashSet<>();
 
         PlayerStatsAccumulator(Player player) {
             this.player = player;
         }
 
         void accept(SetParticipation participation, int setNumber) {
-            setsPlayed++;
+            if (!positions.containsKey(participation.getPositionType())) {
+                positions.put(participation.getPositionType(), true);
+            }
+
             totalPoints += participation.getPoints();
             totalFaults += participation.getFaults();
-            positions.put(participation.getPositionType(), true);
+
+            if (uniqueSets.add(setNumber)) {
+                setsPlayed++;
+            }
         }
 
         PlayerStats build() {

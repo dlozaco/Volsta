@@ -30,25 +30,26 @@ public class TeamService {
 
     @Transactional(readOnly = true)
     public Page<TeamResponse> findAll(Pageable pageable) {
-        return teamRepository.findAll(pageable).map(TeamResponse::from);
+        return teamRepository.findAll(pageable).map(team -> TeamResponse.from(team, matchCount(team)));
     }
 
     @Transactional(readOnly = true)
     public TeamResponse findById(Integer id) {
-        return TeamResponse.from(getTeam(id));
+        Team team = getTeam(id);
+        return TeamResponse.from(team, matchCount(team));
     }
 
     @Transactional(readOnly = true)
     public TeamResponse findByName(String name) {
         return teamRepository.findByName(name)
-                .map(TeamResponse::from)
+                .map(team -> TeamResponse.from(team, matchCount(team)))
                 .orElseThrow(() -> new ResourceNotFoundException("Team", "name", name));
     }
 
     @Transactional(readOnly = true)
     public List<TeamResponse> findByOwnerId(Integer managerId) {
         return teamRepository.findByOwnerIdOrderByIdAsc(managerId).stream()
-                .map(TeamResponse::from)
+                .map(team -> TeamResponse.from(team, matchCount(team)))
                 .toList();
     }
 
@@ -59,7 +60,7 @@ public class TeamService {
         team.setFoundationDate(request.foundationDate());
         team.setLogoUrl(request.logoUrl());
         team.setOwner(owner);
-        return TeamResponse.from(teamRepository.save(team));
+        return TeamResponse.from(teamRepository.save(team), 0);
     }
 
     @Transactional
@@ -69,7 +70,7 @@ public class TeamService {
         team.setName(request.name());
         team.setFoundationDate(request.foundationDate());
         team.setLogoUrl(request.logoUrl());
-        return TeamResponse.from(teamRepository.save(team));
+        return TeamResponse.from(teamRepository.save(team), matchCount(team));
     }
 
     @Transactional
@@ -80,6 +81,10 @@ public class TeamService {
             throw new BusinessException("Cannot delete a team that still has matches");
         }
         teamRepository.delete(team);
+    }
+
+    private long matchCount(Team team) {
+        return matchRepository.countByLocalTeamIdOrVisitorTeamId(team.getId(), team.getId());
     }
 
     private void assertOwnership(Team team, Manager manager) {

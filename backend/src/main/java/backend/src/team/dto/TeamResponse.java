@@ -15,7 +15,7 @@ public record TeamResponse(
         List<PlayerSummary> players,
         long matchesCount
 ) {
-    public static TeamResponse from(Team team) {
+    public static TeamResponse from(Team team, long matchesCount) {
         String ownerName = team.getOwner() != null
                 ? team.getOwner().getName() + " " + team.getOwner().getSurname()
                 : null;
@@ -25,7 +25,6 @@ public record TeamResponse(
                         .filter(p -> p.isActive())
                         .map(PlayerSummary::from)
                         .toList();
-        long matchesCount = team.getMatches() == null ? 0 : team.getMatches().size();
         return new TeamResponse(
                 team.getId(),
                 team.getName(),
