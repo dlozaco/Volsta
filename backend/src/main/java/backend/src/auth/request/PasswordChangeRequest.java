@@ -15,7 +15,7 @@ public class PasswordChangeRequest {
     @NotBlank(message = "New password can't be null")
     @Pattern(
             regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!]).{8,}$",
-            message = "Password must have 8 characters at least, a minus, mayus and a special character (@#$%^&+=!)."
+            message = "Password must be at least 8 characters and include a digit, a lowercase letter, an uppercase letter, and a special character (@#$%^&+=!)."
     )
     private String newPassword;
 }
