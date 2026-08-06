@@ -11,7 +11,7 @@ i18n
         fallbackLng: 'es',
         supportedLngs: ['es', 'en'],
         debug: false,
-        ns: ['home', 'dashboard', 'sidebar', 'teams'],
+        ns: ['home', 'dashboard', 'sidebar', 'teams', 'teamCreate'],
         interpolation: {
             escapeValue: false,
         },
