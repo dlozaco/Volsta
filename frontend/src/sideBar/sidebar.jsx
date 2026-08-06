@@ -12,27 +12,29 @@ import {
 } from "@/components/ui/sidebar"
 import { useAuth } from "../auth/AuthContext"
 import { Button } from "@/components/ui/button"
+import { useTranslation } from "react-i18next"
 
 const authItems = [
-  { title: "Login", url: "/login", icon: LogIn },
-  { title: "Sign Up", url: "/register", icon: UserPlus },
+  { title: "login", url: "/login", icon: LogIn },
+  { title: "signUp", url: "/register", icon: UserPlus },
 ]
 
 const navItems = [
-  { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
-  { title: "Teams", url: "/teams", icon: Shield },
-  { title: "Matches", url: "/matches", icon: CalendarDays },
+  { title: "dashboard", url: "/dashboard", icon: LayoutDashboard },
+  { title: "teams", url: "/teams", icon: Shield },
+  { title: "matches", url: "/matches", icon: CalendarDays },
 ]
 
 export function AppSidebar() {
   const { user, logout } = useAuth()
+  const { t } = useTranslation('sidebar')
 
   return (
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel className="text-lg font-bold mb-4 mt-2">
-            <Link to={"/"}>Home</Link>
+            <Link to={"/"}>{t('home')}</Link>
           </SidebarGroupLabel>
           <SidebarGroupContent>
             {user ? (
@@ -53,7 +55,7 @@ export function AppSidebar() {
                       <SidebarMenuButton asChild className="h-7 text-lg">
                         <Link to={item.url} className="flex items-center gap-2">
                           <item.icon />
-                          <span>{item.title}</span>
+                          <span>{t(item.title)}</span>
                         </Link>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -65,7 +67,7 @@ export function AppSidebar() {
                   onClick={logout}
                 >
                   <LogOut className="size-4" />
-                  <span>Logout</span>
+                  <span>{t('logout')}</span>
                 </Button>
               </div>
             ) : (
