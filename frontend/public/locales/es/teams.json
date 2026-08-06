@@ -1,0 +1,15 @@
+{
+    "title": "Equipos",
+    "subtitle": "equipo",
+    "founded": "Fundado en",
+    "players": "Jugadores",
+    "create": "Crear equipo",
+    "loading": "Cargando equipos...",
+    "error": {
+        "notLoad": "No se pudieron cargar los equipos",
+        "notTeams":{
+            "title": "No hay equipos todavía",
+            "subtitle": "No hay equipos para mostrar"
+        }
+    }
+}

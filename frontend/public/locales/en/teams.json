@@ -1,0 +1,15 @@
+{
+    "title": "Teams",
+    "subtitle": "team",
+    "founded": "Founded ",
+    "players": "Players",
+    "create": "Create team",
+    "loading": "Loading teams...",
+    "error": {
+        "notLoad": "Could not load teams",
+        "notTeams":{
+            "title": "No teams yet",
+            "subtitle": "There are no teams to display."
+        }
+    }
+}

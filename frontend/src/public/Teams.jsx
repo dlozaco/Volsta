@@ -6,9 +6,11 @@ import { Button } from "#components/ui/button";
 import { Link } from "react-router-dom";
 import { Plus } from "lucide-react";
 import { useAuth } from "../auth/AuthContext";
+import { useTranslation } from "react-i18next";
 
 function TeamCard({ team }) {
   const initial = team.name?.charAt(0).toUpperCase() || "?";
+  const { t } = useTranslation('teams')
 
   return (
     <Card className="transition-shadow hover:shadow-md">
@@ -27,12 +29,12 @@ function TeamCard({ team }) {
       <CardContent className="space-y-2 text-sm">
         {team.foundationDate && (
           <div className="flex items-center gap-2 text-muted-foreground">
-            <span>Founded</span>
+            <span>{t('founded')}</span>
             <span className="font-medium text-foreground">{team.foundationDate}</span>
           </div>
         )}
         <div className="flex items-center gap-2 text-muted-foreground">
-          <span>Players</span>
+          <span>{t('players')}</span>
           <span className="font-medium text-foreground">{team.players?.length ?? 0}</span>
         </div>
       </CardContent>
@@ -62,6 +64,7 @@ export default function Teams() {
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { t } = useTranslation('teams')
 
   useEffect(() => {
     let cancelled = false
@@ -76,8 +79,8 @@ export default function Teams() {
     return (
       <div className="space-y-6">
         <div className="space-y-1">
-          <h1 className="text-2xl font-bold">Teams</h1>
-          <p className="text-sm text-muted-foreground">Loading teams...</p>
+          <h1 className="text-2xl font-bold">{t('title')}</h1>
+          <p className="text-sm text-muted-foreground">{t('loading')}</p>
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {Array.from({ length: 8 }).map((_, i) => (
@@ -92,7 +95,7 @@ export default function Teams() {
     return (
       <div className="mx-auto max-w-md space-y-4 rounded-lg border bg-background p-6 text-center">
         <div className="text-4xl">⚠</div>
-        <h2 className="text-lg font-semibold">Could not load teams</h2>
+        <h2 className="text-lg font-semibold">{t('error.notLoad')}</h2>
         <p className="text-sm text-muted-foreground">{error.message || "Something went wrong"}</p>
       </div>
     );
@@ -101,8 +104,8 @@ export default function Teams() {
   if (teams.length === 0) {
     return (
       <div className="mx-auto max-w-md space-y-4 rounded-lg border bg-background p-6 text-center">
-        <h2 className="text-lg font-semibold">No teams yet</h2>
-        <p className="text-sm text-muted-foreground">There are no teams to display.</p>
+        <h2 className="text-lg font-semibold">{t('error.notTeams.title')}</h2>
+        <p className="text-sm text-muted-foreground">{t('error.notTeams.subtitle')}</p>
       </div>
     );
   }
@@ -111,12 +114,12 @@ export default function Teams() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="space-y-1">
-          <h1 className="text-2xl font-bold">Teams</h1>
-          <p className="text-sm text-muted-foreground">{teams.length} team{teams.length !== 1 ? 's' : ''}</p>
+          <h1 className="text-2xl font-bold">{t('title')}</h1>
+          <p className="text-sm text-muted-foreground">{teams.length} {t('subtitle')}{teams.length !== 1 ? 's' : ''}</p>
         </div>
         {user && isManager && (
           <Button size="sm" asChild>
-            <Link to="/teams/new"><Plus className="size-3" /> Create team</Link>
+            <Link to="/teams/new"><Plus className="size-3" /> {t('create')}</Link>
           </Button>
         )}
       </div>
