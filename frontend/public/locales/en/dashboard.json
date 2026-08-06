@@ -1,0 +1,30 @@
+{
+    "loading": "Loading dashboard...",
+    "header": {
+        "title": "Dashboard",
+        "subtitle": "Upcoming matches for {{teamName}}"
+    },
+    "buttons": {
+        "newMatch": "New match",
+        "allMatches": "All matches"
+    },
+    "calendar": {
+        "title": "Calendar",
+        "days": {
+            "mon": "Mon",
+            "tue": "Tue",
+            "wed": "Wed",
+            "thu": "Thu",
+            "fri": "Fri",
+            "sat": "Sat",
+            "sun": "Sun"
+        }
+    },
+    "upcomingMatches": {
+        "title": "Upcoming matches",
+        "emptyState": "No upcoming matches scheduled.",
+        "countdownTitle": "Next match countdown",
+        "untilKickoff": "until kick-off",
+        "datetimeFormat": "{{date}} at {{time}}"
+    }
+}

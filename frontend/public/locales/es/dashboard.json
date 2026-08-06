@@ -1,0 +1,30 @@
+{
+    "loading": "Cargando el panel de control...",
+    "header": {
+        "title": "Panel",
+        "subtitle": "Próximos partidos para {{teamName}}"
+    },
+    "buttons": {
+        "newMatch": "Nuevo partido",
+        "allMatches": "Todos los partidos"
+    },
+    "calendar": {
+        "title": "Calendario",
+        "days": {
+            "mon": "Lun",
+            "tue": "Mar",
+            "wed": "Mié",
+            "thu": "Jue",
+            "fri": "Vie",
+            "sat": "Sáb",
+            "sun": "Dom"
+        }
+    },
+    "upcomingMatches": {
+        "title": "Próximos partidos",
+        "emptyState": "No hay partidos programados.",
+        "countdownTitle": "Cuenta atrás para el próximo partido",
+        "untilKickoff": "para el comienzo",
+        "datetimeFormat": "{{date}} a las {{time}}"
+    }
+}
