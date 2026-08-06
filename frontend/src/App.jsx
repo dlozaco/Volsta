@@ -13,6 +13,7 @@ import MatchDetail from './public/MatchDetail'
 import MatchCreate from './manager/matchCreate/MatchCreate'
 import { AuthProvider, useAuth } from './auth/AuthContext'
 import Teams from './public/Teams'
+import { LanguageSwitcher } from './components/LanguageSwitcher'
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth()
@@ -49,7 +50,10 @@ function App() {
         <AppSidebar />
 
         <main className="flex-1 w-full p-4 overflow-x-hidden">
-          <SidebarTrigger className="mb-4 size-4" />
+          <div className="flex items-center justify-between mb-4">
+            <SidebarTrigger className="size-4" />
+            <LanguageSwitcher />
+          </div>
 
           <Routes>
             <Route path="/" element={<Home />} />
