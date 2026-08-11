@@ -1,0 +1,39 @@
+{
+    "title": "Mi Perfil",
+    "actions": {
+        "changePassword": "Cambiar contraseña",
+        "edit": "Editar",
+        "logout": "Cerrar sesión"
+    },
+    "changePassword": {
+        "title": "Cambiar contraseña",
+        "currentPassword": "Contraseña actual",
+        "newPassword": "Nueva contraseña",
+        "helperText": "8+ caracteres, una minúscula, una mayúscula y un carácter especial (@#$%^&+=!).",
+        "repeatPassword": "Repetir nueva contraseña",
+        "submit": "Actualizar contraseña",
+        "updating": "Actualizando..."
+    },
+    "personalInfo": {
+        "title": "Información Personal",
+        "name": "Nombre",
+        "surname": "Apellidos",
+        "email": "Correo electrónico",
+        "phone": "Teléfono",
+        "photoUrl": "URL de la foto de perfil",
+        "photoPlaceholder": "https://..."
+    },
+    "teams": {
+        "title": "Equipos"
+    },
+    "editButton":{
+        "cancel": "Cancelar",
+        "save": "Guardar",
+        "saving": "Guardando..."
+    },
+    "loading": "Cargando perfil...",
+    "passwordMessages":{
+        "error": "Las contraseñas no son la misma",
+        "success": "¡Contraseña cambiada correctamente!"
+    }
+}

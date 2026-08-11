@@ -1,0 +1,39 @@
+{
+    "title": "My Profile",
+    "actions": {
+        "changePassword": "Change password",
+        "edit": "Edit",
+        "logout": "Logout"
+    },
+    "changePassword": {
+        "title": "Change password",
+        "currentPassword": "Current password",
+        "newPassword": "New password",
+        "helperText": "8+ characters, one lowercase, one uppercase and one special character (@#$%^&+=!).",
+        "repeatPassword": "Repeat new password",
+        "submit": "Update password",
+        "updating": "Updating..."
+    },
+    "personalInfo": {
+        "title": "Personal Information",
+        "name": "Name",
+        "surname": "Surname",
+        "email": "Email",
+        "phone": "Phone",
+        "photoUrl": "Profile photo URL",
+        "photoPlaceholder": "https://..."
+    },
+    "teams": {
+        "title": "Teams"
+    },
+    "editButton":{
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving..."
+    },
+    "loading": "Loading profile...",
+    "passwordMessages":{
+        "error": "New passwords do not match",
+        "success": "Password updated successfully"
+    }
+}
