@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Card, CardContent } from '#components/ui/card'
 import { Button } from '#components/ui/button'
 import { CalendarPlus, MapPin } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '../auth/AuthContext'
 import { getAllMatches } from '@/services/match/matchApi'
 
@@ -12,7 +13,7 @@ function formatDate(startMoment) {
     })
 }
 
-function MatchCard({ match }) {
+function MatchCard({ match, t }) {
     return (
         <Link to={`/matches/${match.id}`} className="block">
             <Card className="transition-shadow hover:shadow-md">
@@ -20,10 +21,10 @@ function MatchCard({ match }) {
                     <div className="min-w-0">
                         <div className="flex flex-wrap items-center gap-2">
                             <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${match.matchType === 'LEAGUE' ? 'bg-accent text-accent-foreground' : 'bg-primary/10 text-primary'}`}>
-                                {match.matchType === 'LEAGUE' ? 'League' : 'Friendly'}
+                                {match.matchType === 'LEAGUE' ? t('list.filters.league') : t('list.filters.friendly')}
                             </span>
                             {match.played && (
-                                <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">Played</span>
+                                <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">{t('detail.played')}</span>
                             )}
                         </div>
                         <p className="mt-1 truncate font-semibold">
@@ -40,7 +41,7 @@ function MatchCard({ match }) {
                                 {match.localScore} <span className="text-muted-foreground">-</span> {match.visitorScore}
                             </p>
                         ) : (
-                            <span className="rounded-full border px-2 py-0.5 text-xs font-medium text-muted-foreground">Upcoming</span>
+                            <span className="rounded-full border px-2 py-0.5 text-xs font-medium text-muted-foreground">{t('detail.upcoming')}</span>
                         )}
                     </div>
                 </CardContent>
@@ -50,6 +51,7 @@ function MatchCard({ match }) {
 }
 
 export default function Matches() {
+    const { t } = useTranslation('matches')
     const { user } = useAuth()
     const [matches, setMatches] = useState([])
     const [loading, setLoading] = useState(true)
@@ -69,15 +71,15 @@ export default function Matches() {
     const filtered = typeFilter === 'ALL' ? sorted : sorted.filter(m => m.matchType === typeFilter)
 
     if (loading) {
-        return <div className="flex items-center justify-center min-h-screen">Loading matches...</div>
+        return <div className="flex items-center justify-center min-h-screen">{t('list.loading')}</div>
     }
 
     if (error) {
         return (
             <div className="mx-auto max-w-md space-y-4 rounded-lg border bg-background p-6 text-center">
-                <h2 className="text-lg font-semibold">Could not load matches</h2>
+                <h2 className="text-lg font-semibold">{t('list.error.title')}</h2>
                 <p className="text-sm text-muted-foreground">{error}</p>
-                <Button variant="outline" asChild><Link to="/">Home</Link></Button>
+                <Button variant="outline" asChild><Link to="/">{t('detail.home')}</Link></Button>
             </div>
         )
     }
@@ -86,35 +88,35 @@ export default function Matches() {
         <div className="space-y-6">
             <div className="flex flex-wrap items-center justify-between gap-4">
                 <div className="space-y-1">
-                    <h1 className="text-2xl font-bold">Matches</h1>
-                    <p className="text-sm text-muted-foreground">{filtered.length} match{filtered.length !== 1 ? 'es' : ''}</p>
+                    <h1 className="text-2xl font-bold">{t('list.title')}</h1>
+                    <p className="text-sm text-muted-foreground">{t('list.subtitle', { count: filtered.length })}</p>
                 </div>
                 <div className="flex items-center gap-2">
                     <div className="flex gap-1">
-                        {['ALL', 'LEAGUE', 'FRIENDLY'].map(t => (
+                        {['ALL', 'LEAGUE', 'FRIENDLY'].map(f => (
                             <Button
-                                key={t}
+                                key={f}
                                 size="sm"
-                                variant={typeFilter === t ? 'default' : 'outline'}
-                                onClick={() => setTypeFilter(t)}
+                                variant={typeFilter === f ? 'default' : 'outline'}
+                                onClick={() => setTypeFilter(f)}
                             >
-                                {t === 'ALL' ? 'All' : t === 'LEAGUE' ? 'League' : 'Friendly'}
+                                {f === 'ALL' ? t('list.filters.all') : f === 'LEAGUE' ? t('list.filters.league') : t('list.filters.friendly')}
                             </Button>
                         ))}
                     </div>
                     {user && (
                         <Button size="sm" asChild>
-                            <Link to="/matches/new"><CalendarPlus className="size-3" /> New match</Link>
+                            <Link to="/matches/new"><CalendarPlus className="size-3" /> {t('list.newMatch')}</Link>
                         </Button>
                     )}
                 </div>
             </div>
 
             {filtered.length === 0 ? (
-                <p className="text-sm text-muted-foreground">No matches found.</p>
+                <p className="text-sm text-muted-foreground">{t('list.noMatches')}</p>
             ) : (
                 <div className="grid gap-3">
-                    {filtered.map(m => <MatchCard key={m.id} match={m} />)}
+                    {filtered.map(m => <MatchCard key={m.id} match={m} t={t} />)}
                 </div>
             )}
         </div>

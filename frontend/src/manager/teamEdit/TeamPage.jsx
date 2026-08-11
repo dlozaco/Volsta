@@ -5,21 +5,14 @@ import { Button } from '#components/ui/button'
 import { Input } from '#components/ui/input'
 import { Label } from '#components/ui/label'
 import { Pencil, Save, X, Trash2, UserPlus, LogOut } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '../../auth/AuthContext'
 import { getTeamByName, getMyTeams, updateTeam, deleteTeam } from '@/services/team/teamApi'
 import { createPlayer, updatePlayer, softDeletePlayer } from '@/services/player/playerApi'
 
-const positionLabels = {
-    SETTER: 'Setter',
-    WING_SPIKER: 'Outside Hitter',
-    MIDDLE_BLOCKER: 'Middle Blocker',
-    OPPOSITE: 'Opposite',
-    LIBERO: 'Libero'
-}
+const positionOptions = ['SETTER', 'WING_SPIKER', 'MIDDLE_BLOCKER', 'OPPOSITE', 'LIBERO']
 
-const positionOptions = Object.keys(positionLabels)
-
-function PlayerCard({ player, isOwner, onEdit, onDelete }) {
+function PlayerCard({ player, isOwner, onEdit, onDelete, t }) {
     return (
         <Card size="sm">
             <CardHeader>
@@ -31,15 +24,15 @@ function PlayerCard({ player, isOwner, onEdit, onDelete }) {
                 </CardTitle>
             </CardHeader>
             <CardContent className="space-y-1 text-sm">
-                <p><span className="text-muted-foreground">Position:</span> {positionLabels[player.corePosition] || player.corePosition}</p>
-                <p className="truncate"><span className="text-muted-foreground">Email:</span> {player.email}</p>
+                <p><span className="text-muted-foreground">{t('page.positions.SETTER') === 'Colocador' ? 'Posición:' : 'Position:'}</span> {t(`page.positions.${player.corePosition}`) || player.corePosition}</p>
+                <p className="truncate"><span className="text-muted-foreground">{t('page.email')}:</span> {player.email}</p>
                 {isOwner && (
                     <div className="flex gap-2 pt-2">
                         <Button variant="outline" size="sm" onClick={() => onEdit(player)}>
-                            <Pencil className="size-3" /> Edit
+                            <Pencil className="size-3" /> {t('page.editPlayer')}
                         </Button>
                         <Button variant="ghost" size="sm" className="text-red-600" onClick={() => onDelete(player)}>
-                            <Trash2 className="size-3" /> Remove
+                            <Trash2 className="size-3" /> {t('page.removePlayer')}
                         </Button>
                     </div>
                 )}
@@ -51,6 +44,7 @@ function PlayerCard({ player, isOwner, onEdit, onDelete }) {
 const emptyPlayerForm = { name: '', surname: '', email: '', dorsal: '', corePosition: 'SETTER' }
 
 export default function TeamPage() {
+    const { t } = useTranslation('teams')
     const { isManager } = useAuth()
     const { name } = useParams()
     const [team, setTeam] = useState(null)
@@ -91,24 +85,24 @@ export default function TeamPage() {
     const isOwner = isManager && team?.id != null && myTeamIds.includes(team.id)
 
     if (loading) {
-        return <div className="flex items-center justify-center min-h-screen">Loading...</div>
+        return <div className="flex items-center justify-center min-h-screen">{t('page.loading')}</div>
     }
 
     if (error || !team) {
         return (
             <div className="mx-auto max-w-2xl space-y-4 rounded-lg border bg-background p-6">
                 <div className="space-y-2">
-                    <h1 className="text-2xl font-bold">Team not found</h1>
+                    <h1 className="text-2xl font-bold">{t('page.notFound')}</h1>
                     <p className="text-sm text-muted-foreground">
-                        We could not load this team page.
+                        {t('page.notFoundDescription')}
                     </p>
                 </div>
                 <div className="flex gap-2">
                     <Button variant="outline" asChild>
-                        <Link to="/teams">All teams</Link>
+                        <Link to="/teams">{t('page.allTeams')}</Link>
                     </Button>
                     <Button variant="outline" asChild>
-                        <Link to="/">Home</Link>
+                        <Link to="/">{t('page.home')}</Link>
                     </Button>
                 </div>
             </div>
@@ -143,7 +137,7 @@ export default function TeamPage() {
     }
 
     const removeTeam = async () => {
-        if (!window.confirm(`Delete team "${team.name}"? This cannot be undone.`)) return
+        if (!window.confirm(t('page.deleteConfirm', { name: team.name }))) return
         setError(null)
         try {
             await deleteTeam(team.id)
@@ -195,7 +189,7 @@ export default function TeamPage() {
     }
 
     const removePlayer = async (player) => {
-        if (!window.confirm(`Remove ${player.name} ${player.surname} from the roster?`)) return
+        if (!window.confirm(t('page.removePlayerConfirm', { name: player.name, surname: player.surname }))) return
         setError(null)
         try {
             await softDeletePlayer(player.id)
@@ -213,27 +207,27 @@ export default function TeamPage() {
                         <h1 className="text-2xl font-bold">{team.name}</h1>
                         {isOwner && (
                             <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
-                                My team
+                                {t('page.myTeam')}
                             </span>
                         )}
                     </div>
                     {team.foundationDate && (
-                        <p className="text-sm text-muted-foreground">Founded on {team.foundationDate}</p>
+                        <p className="text-sm text-muted-foreground">{t('page.foundedOn', { date: team.foundationDate })}</p>
                     )}
                 </div>
                 <div className="flex gap-2">
                     {isOwner && !editing && (
                         <>
                             <Button variant="outline" size="sm" onClick={startEditTeam}>
-                                <Pencil className="size-3" /> Edit team
+                                <Pencil className="size-3" /> {t('page.editTeam')}
                             </Button>
                             <Button variant="ghost" size="sm" className="text-red-600" onClick={removeTeam}>
-                                <LogOut className="size-3" /> Delete team
+                                <LogOut className="size-3" /> {t('page.deleteTeam')}
                             </Button>
                         </>
                     )}
                     <Button variant="outline" asChild>
-                        <Link to="/teams">All teams</Link>
+                        <Link to="/teams">{t('page.allTeams')}</Link>
                     </Button>
                 </div>
             </div>
@@ -245,27 +239,27 @@ export default function TeamPage() {
             {isOwner && editing && (
                 <Card>
                     <CardHeader>
-                        <CardTitle>Edit team profile</CardTitle>
+                        <CardTitle>{t('page.editTitle')}</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
                         <div className="grid gap-2">
-                            <Label htmlFor="teamName">Team name</Label>
+                            <Label htmlFor="teamName">{t('page.teamName')}</Label>
                             <Input id="teamName" value={teamForm.name} onChange={e => setTeamForm({ ...teamForm, name: e.target.value })} />
                         </div>
                         <div className="grid gap-2">
-                            <Label htmlFor="foundationDate">Foundation date</Label>
+                            <Label htmlFor="foundationDate">{t('page.foundationDate')}</Label>
                             <Input id="foundationDate" type="date" value={teamForm.foundationDate} onChange={e => setTeamForm({ ...teamForm, foundationDate: e.target.value })} />
                         </div>
                         <div className="grid gap-2">
-                            <Label htmlFor="logoUrl">Logo URL</Label>
-                            <Input id="logoUrl" type="url" placeholder="https://..." value={teamForm.logoUrl} onChange={e => setTeamForm({ ...teamForm, logoUrl: e.target.value })} />
+                            <Label htmlFor="logoUrl">{t('page.logoUrl')}</Label>
+                            <Input id="logoUrl" type="url" placeholder={t('page.logoPlaceholder')} value={teamForm.logoUrl} onChange={e => setTeamForm({ ...teamForm, logoUrl: e.target.value })} />
                         </div>
                         <div className="flex gap-2">
                             <Button size="sm" onClick={saveTeam} disabled={savingTeam}>
-                                <Save className="size-3" /> {savingTeam ? 'Saving...' : 'Save'}
+                                <Save className="size-3" /> {savingTeam ? t('page.saving') : t('page.save')}
                             </Button>
                             <Button variant="outline" size="sm" onClick={() => setEditing(false)}>
-                                <X className="size-3" /> Cancel
+                                <X className="size-3" /> {t('page.cancel')}
                             </Button>
                         </div>
                     </CardContent>
@@ -274,9 +268,9 @@ export default function TeamPage() {
 
             {isOwner && (
                 <div className="flex items-center justify-between">
-                    <h2 className="text-lg font-semibold">Roster ({team.players?.length ?? 0})</h2>
+                    <h2 className="text-lg font-semibold">{t('page.roster', { count: team.players?.length ?? 0 })}</h2>
                     <Button size="sm" onClick={() => { setShowAddPlayer(!showAddPlayer); setEditingPlayerId(null); setPlayerForm(emptyPlayerForm) }}>
-                        <UserPlus className="size-3" /> Add player
+                        <UserPlus className="size-3" /> {t('page.addPlayer')}
                     </Button>
                 </div>
             )}
@@ -284,40 +278,40 @@ export default function TeamPage() {
             {isOwner && showAddPlayer && (
                 <Card>
                     <CardHeader>
-                        <CardTitle>{editingPlayerId ? 'Edit player' : 'Add player'}</CardTitle>
+                        <CardTitle>{editingPlayerId ? t('page.editPlayer') : t('page.addPlayerTitle')}</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <form onSubmit={submitPlayer} className="grid gap-4 sm:grid-cols-2">
                             <div className="grid gap-2">
-                                <Label htmlFor="pName">Name</Label>
+                                <Label htmlFor="pName">{t('page.name')}</Label>
                                 <Input id="pName" required value={playerForm.name} onChange={e => setPlayerForm({ ...playerForm, name: e.target.value })} />
                             </div>
                             <div className="grid gap-2">
-                                <Label htmlFor="pSurname">Surname</Label>
+                                <Label htmlFor="pSurname">{t('page.surname')}</Label>
                                 <Input id="pSurname" required value={playerForm.surname} onChange={e => setPlayerForm({ ...playerForm, surname: e.target.value })} />
                             </div>
                             <div className="grid gap-2">
-                                <Label htmlFor="pEmail">Email</Label>
+                                <Label htmlFor="pEmail">{t('page.email')}</Label>
                                 <Input id="pEmail" type="email" required value={playerForm.email} onChange={e => setPlayerForm({ ...playerForm, email: e.target.value })} />
                             </div>
                             <div className="grid gap-2">
-                                <Label htmlFor="pDorsal">Dorsal</Label>
+                                <Label htmlFor="pDorsal">{t('page.dorsal')}</Label>
                                 <Input id="pDorsal" type="number" min="1" required value={playerForm.dorsal} onChange={e => setPlayerForm({ ...playerForm, dorsal: e.target.value })} />
                             </div>
                             <div className="grid gap-2 sm:col-span-2">
-                                <Label htmlFor="pPosition">Core position</Label>
+                                <Label htmlFor="pPosition">{t('page.corePosition')}</Label>
                                 <select id="pPosition" className="rounded-md border bg-background px-3 py-2 text-sm" value={playerForm.corePosition} onChange={e => setPlayerForm({ ...playerForm, corePosition: e.target.value })}>
                                     {positionOptions.map(pos => (
-                                        <option key={pos} value={pos}>{positionLabels[pos]}</option>
+                                        <option key={pos} value={pos}>{t(`page.positions.${pos}`)}</option>
                                     ))}
                                 </select>
                             </div>
                             <div className="flex gap-2 sm:col-span-2">
                                 <Button type="submit" disabled={savingPlayer}>
-                                    {savingPlayer ? 'Saving...' : editingPlayerId ? 'Save changes' : 'Add player'}
+                                    {savingPlayer ? t('page.saving') : editingPlayerId ? t('page.saveChanges') : t('page.addPlayer')}
                                 </Button>
                                 <Button type="button" variant="outline" onClick={() => { setShowAddPlayer(false); setEditingPlayerId(null) }}>
-                                    Cancel
+                                    {t('page.cancel')}
                                 </Button>
                             </div>
                         </form>
@@ -333,12 +327,13 @@ export default function TeamPage() {
                         isOwner={isOwner}
                         onEdit={startEditPlayer}
                         onDelete={removePlayer}
+                        t={t}
                     />
                 ))}
             </div>
 
             {team.players?.length === 0 && (
-                <p className="text-sm text-muted-foreground">No players in this team yet.</p>
+                <p className="text-sm text-muted-foreground">{t('page.noPlayers')}</p>
             )}
         </div>
     )

@@ -7,9 +7,49 @@
     "loading": "Cargando equipos...",
     "error": {
         "notLoad": "No se pudieron cargar los equipos",
-        "notTeams":{
+        "notTeams": {
             "title": "No hay equipos todavía",
             "subtitle": "No hay equipos para mostrar"
+        }
+    },
+    "page": {
+        "loading": "Cargando...",
+        "notFound": "Equipo no encontrado",
+        "notFoundDescription": "No pudimos cargar la página de este equipo.",
+        "allTeams": "Todos los equipos",
+        "home": "Inicio",
+        "myTeam": "Mi equipo",
+        "foundedOn": "Fundado el {{date}}",
+        "editTeam": "Editar equipo",
+        "deleteTeam": "Eliminar equipo",
+        "deleteConfirm": "¿Eliminar el equipo \"{{name}}\"? Esta acción no se puede deshacer.",
+        "editTitle": "Editar perfil del equipo",
+        "teamName": "Nombre del equipo",
+        "foundationDate": "Fecha de fundación",
+        "logoUrl": "URL del logo",
+        "logoPlaceholder": "https://...",
+        "saving": "Guardando...",
+        "save": "Guardar",
+        "cancel": "Cancelar",
+        "roster": "Plantilla ({{count}})",
+        "addPlayer": "Agregar jugador",
+        "editPlayer": "Editar jugador",
+        "addPlayerTitle": "Agregar jugador",
+        "name": "Nombre",
+        "surname": "Apellido",
+        "email": "Correo electrónico",
+        "dorsal": "Dorsal",
+        "corePosition": "Posición principal",
+        "saveChanges": "Guardar cambios",
+        "removePlayer": "Eliminar",
+        "removePlayerConfirm": "¿Eliminar a {{name}} {{surname}} de la plantilla?",
+        "noPlayers": "Aún no hay jugadores en este equipo.",
+        "positions": {
+            "SETTER": "Colocador",
+            "WING_SPIKER": "Rematador exterior",
+            "MIDDLE_BLOCKER": "Central",
+            "OPPOSITE": "Opuesto",
+            "LIBERO": "Líbero"
         }
     }
 }
