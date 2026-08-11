@@ -7,6 +7,7 @@ import { Input } from '#components/ui/input'
 import { Label } from '#components/ui/label'
 import { Pencil, Save, X, LogOut, KeyRound } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 export default function ManagerProfile() {
     const { user, logout } = useAuth()
@@ -21,6 +22,8 @@ export default function ManagerProfile() {
     const [passwordForm, setPasswordForm] = useState({ currentPassword: '', newPassword: '', repeatPassword: '' })
     const [passwordMsg, setPasswordMsg] = useState(null)
     const [passwordSaving, setPasswordSaving] = useState(false)
+
+    const { t } = useTranslation('profile')
 
     useEffect(() => {
         getManagerProfile()
@@ -64,13 +67,13 @@ export default function ManagerProfile() {
         e.preventDefault()
         setPasswordMsg(null)
         if (passwordForm.newPassword !== passwordForm.repeatPassword) {
-            setPasswordMsg({ type: 'error', text: 'New passwords do not match' })
+            setPasswordMsg({ type: 'error', text: t('passwordMessages.error') })
             return
         }
         setPasswordSaving(true)
         try {
             await changePassword(passwordForm.currentPassword, passwordForm.newPassword)
-            setPasswordMsg({ type: 'success', text: 'Password updated successfully' })
+            setPasswordMsg({ type: 'success', text: t('passwordMessages.success') })
             setPasswordForm({ currentPassword: '', newPassword: '', repeatPassword: '' })
             setPasswordOpen(false)
         } catch (err) {
@@ -80,34 +83,34 @@ export default function ManagerProfile() {
         }
     }
 
-    if (loading) return <div className="flex items-center justify-center min-h-screen">Loading profile...</div>
+    if (loading) return <div className="flex items-center justify-center min-h-screen">{t('loading')}</div>
 
     const initials = (profile?.name?.charAt(0) || '') + (profile?.surname?.charAt(0) || '')
 
     return (
         <div className="mx-auto max-w-2xl space-y-6">
             <div className="flex items-center justify-between">
-                <h1 className="text-2xl font-bold">My Profile</h1>
+                <h1 className="text-2xl font-bold">{t('title')}</h1>
                 <div className="flex gap-2">
                     {editing ? (
                         <>
                             <Button variant="outline" size="sm" onClick={handleCancel} disabled={saving}>
-                                <X className="mr-1 size-4" /> Cancel
+                                <X className="mr-1 size-4" /> {t('editButton.cancel')}
                             </Button>
                             <Button size="sm" onClick={handleSave} disabled={saving}>
-                                <Save className="mr-1 size-4" /> {saving ? 'Saving...' : 'Save'}
+                                <Save className="mr-1 size-4" /> {saving ? t('editButton.saving') : t('editButton.save')}
                             </Button>
                         </>
                     ) : (
                         <>
                             <Button variant="outline" size="sm" onClick={() => setPasswordOpen(!passwordOpen)}>
-                                <KeyRound className="mr-1 size-4" /> Change password
+                                <KeyRound className="mr-1 size-4" /> {t('actions.changePassword')}
                             </Button>
                             <Button variant="outline" size="sm" onClick={() => setEditing(true)}>
-                                <Pencil className="mr-1 size-4" /> Edit
+                                <Pencil className="mr-1 size-4" /> {t('actions.edit')}
                             </Button>
                             <Button variant="ghost" size="sm" onClick={logout}>
-                                <LogOut className="mr-1 size-4" /> Logout
+                                <LogOut className="mr-1 size-4" /> {t('actions.logout')}
                             </Button>
                         </>
                     )}
@@ -123,21 +126,21 @@ export default function ManagerProfile() {
             {passwordOpen && (
                 <Card>
                     <CardHeader>
-                        <CardTitle className="text-base">Change password</CardTitle>
+                        <CardTitle className="text-base">{t('changePassword.title')}</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <form onSubmit={handleChangePassword} className="space-y-4">
                             <div className="grid gap-2">
-                                <Label htmlFor="currentPassword">Current password</Label>
+                                <Label htmlFor="currentPassword">{t('changePassword.currentPassword')}</Label>
                                 <Input id="currentPassword" type="password" required value={passwordForm.currentPassword} onChange={handlePasswordChange('currentPassword')} />
                             </div>
                             <div className="grid gap-2">
-                                <Label htmlFor="newPassword">New password</Label>
+                                <Label htmlFor="newPassword">{t('changePassword.newPassword')}</Label>
                                 <Input id="newPassword" type="password" required value={passwordForm.newPassword} onChange={handlePasswordChange('newPassword')} />
-                                <p className="text-xs text-muted-foreground">8+ characters, one lowercase, one uppercase and one special character (@#$%^&+=!).</p>
+                                <p className="text-xs text-muted-foreground">{t('changePassword.helperText')}</p>
                             </div>
                             <div className="grid gap-2">
-                                <Label htmlFor="repeatPassword">Repeat new password</Label>
+                                <Label htmlFor="repeatPassword">{t('changePassword.repeatPassword')}</Label>
                                 <Input id="repeatPassword" type="password" required value={passwordForm.repeatPassword} onChange={handlePasswordChange('repeatPassword')} />
                             </div>
                             {passwordMsg && (
@@ -146,7 +149,7 @@ export default function ManagerProfile() {
                                 </p>
                             )}
                             <Button type="submit" disabled={passwordSaving}>
-                                {passwordSaving ? 'Updating...' : 'Update password'}
+                                {passwordSaving ? t('changePassword.updating') : t('changePassword.submit')}
                             </Button>
                         </form>
                     </CardContent>
@@ -175,27 +178,27 @@ export default function ManagerProfile() {
                 <div className="flex-1">
                     <Card>
                         <CardHeader>
-                            <CardTitle>Personal Information</CardTitle>
+                            <CardTitle>{t('personalInfo.title')}</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-4">
                             <div className="grid gap-2">
-                                <Label htmlFor="name">Name</Label>
+                                <Label htmlFor="name">{t('personalInfo.name')}</Label>
                                 <Input id="name" value={form.name} onChange={handleChange('name')} disabled={!editing} />
                             </div>
                             <div className="grid gap-2">
-                                <Label htmlFor="surname">Surname</Label>
+                                <Label htmlFor="surname">{t('personalInfo.surname')}</Label>
                                 <Input id="surname" value={form.surname} onChange={handleChange('surname')} disabled={!editing} />
                             </div>
                             <div className="grid gap-2">
-                                <Label htmlFor="email">Email</Label>
+                                <Label htmlFor="email">{t('personalInfo.email')}</Label>
                                 <Input id="email" type="email" value={form.email} onChange={handleChange('email')} disabled={!editing} />
                             </div>
                             <div className="grid gap-2">
-                                <Label htmlFor="phoneNumber">Phone</Label>
+                                <Label htmlFor="phoneNumber">{t('personalInfo.phone')}</Label>
                                 <Input id="phoneNumber" value={form.phoneNumber} onChange={handleChange('phoneNumber')} disabled={!editing} />
                             </div>
                             <div className="grid gap-2">
-                                <Label htmlFor="photoUrl">Profile photo URL</Label>
+                                <Label htmlFor="photoUrl">{t('personalInfo.photoUrl')}</Label>
                                 <Input id="photoUrl" type="url" placeholder="https://..." value={form.photoUrl} onChange={handleChange('photoUrl')} disabled={!editing} />
                             </div>
                         </CardContent>
@@ -204,7 +207,7 @@ export default function ManagerProfile() {
                     {profile?.teams?.length > 0 && (
                         <Card className="mt-6">
                             <CardHeader>
-                                <CardTitle>Teams</CardTitle>
+                                <CardTitle>{t('teams.title')}</CardTitle>
                             </CardHeader>
                             <CardContent>
                                 <ul className="space-y-1">

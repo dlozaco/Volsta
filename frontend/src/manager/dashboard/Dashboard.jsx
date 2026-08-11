@@ -6,8 +6,9 @@ import { ChevronLeft, ChevronRight, CalendarPlus, Clock } from 'lucide-react'
 import { useAuth } from '../../auth/AuthContext'
 import { getMyTeams } from '@/services/team/teamApi'
 import { getMatchesByTeam, getAllMatches } from '@/services/match/matchApi'
+import { useTranslation } from 'react-i18next'
 
-const DAY_NAMES = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+const DAY_KEYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
 
 function matchDate(match) {
     return new Date(match.startMoment).toLocaleDateString('en-CA') // YYYY-MM-DD
@@ -39,6 +40,7 @@ export default function Dashboard() {
         const now = new Date()
         return new Date(now.getFullYear(), now.getMonth(), 1)
     })
+    const { t } = useTranslation('dashboard')
 
     useEffect(() => {
         let cancelled = false
@@ -99,27 +101,28 @@ export default function Dashboard() {
 
     const monthLabel = month.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
 
+
     if (loading) {
-        return <div className="flex items-center justify-center min-h-screen">Loading dashboard...</div>
+        return <div className="flex items-center justify-center min-h-screen">{t('loading')}</div>
     }
 
     return (
         <div className="space-y-6">
             <div className="flex flex-wrap items-center justify-between gap-4">
                 <div className="space-y-1">
-                    <h1 className="text-2xl font-bold">Dashboard</h1>
+                    <h1 className="text-2xl font-bold">{t('header.title')}</h1>
                     <p className="text-sm text-muted-foreground">
-                        {isManager && team ? `Upcoming matches for ${team.name}` : 'League calendar'}
+                        {isManager && team ? t('header.subtitle', { teamName: team.name }) : 'League calendar'}
                     </p>
                 </div>
                 <div className="flex gap-2">
                     <Button variant="outline" asChild>
                         <Link to="/matches/new">
-                            <CalendarPlus className="size-3" /> New match
+                            <CalendarPlus className="size-3" /> {t('buttons.newMatch')}
                         </Link>
                     </Button>
                     <Button variant="outline" asChild>
-                        <Link to="/matches">All matches</Link>
+                        <Link to="/matches">{t('buttons.allMatches')}</Link>
                     </Button>
                 </div>
             </div>
@@ -132,7 +135,7 @@ export default function Dashboard() {
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2 text-base">
-                            <Clock className="size-4 text-primary" /> Next match countdown
+                            <Clock className="size-4 text-primary" /> {t('upcomingMatches.countdownTitle')}
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -152,7 +155,7 @@ export default function Dashboard() {
                                 <div className="text-3xl font-extrabold text-primary tabular-nums">
                                     {formatCountdown(new Date(nextMatch.startMoment), now)}
                                 </div>
-                                <div className="text-xs text-muted-foreground">until kick-off</div>
+                                <div className="text-xs text-muted-foreground">{t('upcomingMatches.untilKickoff')}</div>
                             </div>
                         </div>
                     </CardContent>
@@ -161,7 +164,7 @@ export default function Dashboard() {
 
             <Card>
                 <CardHeader className="flex-row items-center justify-between">
-                    <CardTitle className="text-base">Calendar</CardTitle>
+                    <CardTitle className="text-base">{t('calendar.title')}</CardTitle>
                     <div className="flex items-center gap-2">
                         <Button variant="outline" size="icon" onClick={() => changeMonth(-1)} aria-label="Previous month">
                             <ChevronLeft className="size-4" />
@@ -174,8 +177,10 @@ export default function Dashboard() {
                 </CardHeader>
                 <CardContent>
                     <div className="grid grid-cols-7 gap-1 text-center">
-                        {DAY_NAMES.map(day => (
-                            <div key={day} className="py-1 text-xs font-medium text-muted-foreground">{day}</div>
+                        {DAY_KEYS.map(dayKey => (
+                            <div key={dayKey} className="py-1 text-xs font-medium text-muted-foreground">
+                                {t(`calendar.days.${dayKey}`)}
+                            </div>
                         ))}
                         {calendarCells.map((day, i) => {
                             if (day === null) return <div key={`empty-${i}`} />
@@ -208,9 +213,9 @@ export default function Dashboard() {
             </Card>
 
             <div className="space-y-2">
-                <h2 className="text-lg font-semibold">Upcoming matches</h2>
+                <h2 className="text-lg font-semibold">{t('upcomingMatches.title')}</h2>
                 {upcoming.length === 0 ? (
-                    <p className="text-sm text-muted-foreground">No upcoming matches scheduled.</p>
+                    <p className="text-sm text-muted-foreground">{t('upcomingMatches.emptyState')}</p>
                 ) : (
                     <div className="grid gap-3 sm:grid-cols-2">
                         {upcoming.map(m => (

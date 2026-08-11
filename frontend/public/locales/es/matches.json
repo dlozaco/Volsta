@@ -1,0 +1,113 @@
+{
+    "list": {
+        "title": "Partidos",
+        "subtitle": "{{count}} partido",
+        "subtitle_plural": "{{count}} partidos",
+        "noMatches": "No se encontraron partidos.",
+        "loading": "Cargando partidos...",
+        "error": {
+            "title": "No se pudieron cargar los partidos"
+        },
+        "filters": {
+            "all": "Todos",
+            "league": "Liga",
+            "friendly": "Amistoso"
+        },
+        "newMatch": "Nuevo partido"
+    },
+    "create": {
+        "title": "Nuevo partido",
+        "signinRequired": "Inicio de sesión requerido",
+        "signinDescription": "Necesitas una cuenta para crear partidos.",
+        "login": "Iniciar sesión",
+        "loadingTeams": "Cargando equipos...",
+        "descriptionManager": "Partidos amistosos: elige tu equipo como local y selecciona el visitante.",
+        "descriptionAdmin": "Los partidos de liga solo pueden ser creados por un administrador.",
+        "matchType": "Tipo de partido",
+        "friendly": "Amistoso",
+        "league": "Liga",
+        "startDate": "Fecha y hora de inicio",
+        "localTeam": "Equipo local",
+        "selectLocalTeam": "Seleccionar equipo local",
+        "visitorTeam": "Equipo visitante",
+        "selectVisitorTeam": "Seleccionar equipo visitante",
+        "place": "Lugar",
+        "placePlaceholder": "Gimnasio...",
+        "creating": "Creando...",
+        "createMatch": "Crear partido",
+        "cancel": "Cancelar",
+        "details": "Detalles del partido"
+    },
+    "detail": {
+        "loading": "Cargando partido...",
+        "notFound": "Partido no encontrado",
+        "notFoundDescription": "No pudimos cargar este partido.",
+        "allMatches": "Todos los partidos",
+        "home": "Inicio",
+        "local": "Local",
+        "visitor": "Visitante",
+        "upcoming": "Próximo",
+        "played": "Jugado",
+        "league": "Liga",
+        "friendly": "Amistoso",
+        "reschedule": "Reprogramar",
+        "delete": "Eliminar",
+        "deleteConfirm": "¿Eliminar este partido? Esta acción no se puede deshacer.",
+        "rescheduleTitle": "Reprogramar partido",
+        "startDate": "Fecha y hora de inicio",
+        "place": "Lugar",
+        "placePlaceholder": "Gimnasio...",
+        "saving": "Guardando...",
+        "save": "Guardar",
+        "cancel": "Cancelar",
+        "sets": {
+            "title": "Sets",
+            "addSet": "Agregar set",
+            "noSets": "Aún no hay sets registrados.",
+            "setNumber": "Número de set",
+            "localScore": "Puntuación local",
+            "visitorScore": "Puntuación visitante",
+            "saving": "Guardando...",
+            "add": "Agregar"
+        },
+        "participation": {
+            "position": "Posición",
+            "player": "Jugador",
+            "selectPlayer": "Seleccionar jugador",
+            "points": "Puntos",
+            "faults": "Faltas",
+            "add": "Agregar"
+        },
+        "stats": {
+            "title": "Estadísticas de jugadores",
+            "noStats": "No hay estadísticas disponibles.",
+            "team": "Equipo",
+            "player": "Jugador",
+            "position": "Posición",
+            "sets": "Sets",
+            "points": "Puntos",
+            "faults": "Faltas",
+            "avg": "Prom",
+            "eff": "Efi%"
+        },
+        "notes": {
+            "title": "Notas",
+            "noNotes": "Aún no hay notas.",
+            "player": "Jugador",
+            "selectPlayer": "Seleccionar jugador",
+            "general": "General",
+            "subject": "Asunto",
+            "description": "Descripción",
+            "saving": "Guardando...",
+            "addNote": "Agregar nota",
+            "deleteConfirm": "¿Eliminar esta nota?"
+        },
+        "positions": {
+            "SETTER": "Colocador",
+            "WING_SPIKER": "Rematador exterior",
+            "MIDDLE_BLOCKER": "Central",
+            "OPPOSITE": "Opuesto",
+            "LIBERO": "Líbero"
+        }
+    }
+}

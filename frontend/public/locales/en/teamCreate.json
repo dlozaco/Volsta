@@ -1,0 +1,19 @@
+{
+    "header": {
+        "title": "Create your team",
+        "subtitle": "You will be assigned as the owner of this team automatically."
+    },
+    "form": {
+        "sectionTitle": "Team details",
+        "labels": {
+            "name": "Team name",
+            "foundationDate": "Foundation date",
+            "logoUrl": "Logo URL"
+        },
+        "buttons": {
+            "submit": "Create team",
+            "cancel": "Cancel",
+            "creating": "Creatnig..."
+        }
+    }
+}

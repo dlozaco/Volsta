@@ -1,0 +1,19 @@
+    {
+    "header": {
+        "title": "Crea tu equipo",
+        "subtitle": "Serás asignado como el propietario de este equipo automáticamente."
+    },
+    "form": {
+        "sectionTitle": "Detalles del equipo",
+        "labels": {
+            "name": "Nombre del equipo",
+            "foundationDate": "Fecha de fundación",
+            "logoUrl": "URL del logo"
+        },
+        "buttons": {
+            "submit": "Crear equipo",
+            "cancel": "Cancelar",
+            "creating": "Creando..."
+        }
+    }
+    }

@@ -1,0 +1,113 @@
+{
+    "list": {
+        "title": "Matches",
+        "subtitle": "{{count}} match",
+        "subtitle_plural": "{{count}} matches",
+        "noMatches": "No matches found.",
+        "loading": "Loading matches...",
+        "error": {
+            "title": "Could not load matches"
+        },
+        "filters": {
+            "all": "All",
+            "league": "League",
+            "friendly": "Friendly"
+        },
+        "newMatch": "New match"
+    },
+    "create": {
+        "title": "New match",
+        "signinRequired": "Sign in required",
+        "signinDescription": "You need an account to create matches.",
+        "login": "Login",
+        "loadingTeams": "Loading teams...",
+        "descriptionManager": "Friendly matches: pick your team as local team and choose the visitor.",
+        "descriptionAdmin": "League matches can only be created by an administrator.",
+        "matchType": "Match type",
+        "friendly": "Friendly",
+        "league": "League",
+        "startDate": "Start date & time",
+        "localTeam": "Local team",
+        "selectLocalTeam": "Select local team",
+        "visitorTeam": "Visitor team",
+        "selectVisitorTeam": "Select visitor team",
+        "place": "Place",
+        "placePlaceholder": "Gym hall...",
+        "creating": "Creating...",
+        "createMatch": "Create match",
+        "cancel": "Cancel",
+        "details": "Match details"
+    },
+    "detail": {
+        "loading": "Loading match...",
+        "notFound": "Match not found",
+        "notFoundDescription": "We could not load this match.",
+        "allMatches": "All matches",
+        "home": "Home",
+        "local": "Local",
+        "visitor": "Visitor",
+        "upcoming": "Upcoming",
+        "played": "Played",
+        "league": "League",
+        "friendly": "Friendly",
+        "reschedule": "Reschedule",
+        "delete": "Delete",
+        "deleteConfirm": "Delete this match? This cannot be undone.",
+        "rescheduleTitle": "Reschedule match",
+        "startDate": "Start date & time",
+        "place": "Place",
+        "placePlaceholder": "Gym hall...",
+        "saving": "Saving...",
+        "save": "Save",
+        "cancel": "Cancel",
+        "sets": {
+            "title": "Sets",
+            "addSet": "Add set",
+            "noSets": "No sets recorded yet.",
+            "setNumber": "Set number",
+            "localScore": "Local score",
+            "visitorScore": "Visitor score",
+            "saving": "Saving...",
+            "add": "Add"
+        },
+        "participation": {
+            "position": "Position",
+            "player": "Player",
+            "selectPlayer": "Select player",
+            "points": "Points",
+            "faults": "Faults",
+            "add": "Add"
+        },
+        "stats": {
+            "title": "Player statistics",
+            "noStats": "No statistics available.",
+            "team": "Team",
+            "player": "Player",
+            "position": "Position",
+            "sets": "Sets",
+            "points": "Points",
+            "faults": "Faults",
+            "avg": "Avg",
+            "eff": "Eff%"
+        },
+        "notes": {
+            "title": "Notes",
+            "noNotes": "No notes yet.",
+            "player": "Player",
+            "selectPlayer": "Select player",
+            "general": "General",
+            "subject": "Subject",
+            "description": "Description",
+            "saving": "Saving...",
+            "addNote": "Add note",
+            "deleteConfirm": "Delete this note?"
+        },
+        "positions": {
+            "SETTER": "Setter",
+            "WING_SPIKER": "Outside Hitter",
+            "MIDDLE_BLOCKER": "Middle Blocker",
+            "OPPOSITE": "Opposite",
+            "LIBERO": "Libero"
+        }
+    }
+}

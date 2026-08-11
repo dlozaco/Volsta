@@ -1,0 +1,22 @@
+{
+    "welcome": "La plataforma completa de gestión de equipos de volleyball.",
+    "buttons": {
+        "es": "Español",
+        "en": "Inglés",
+        "main": "Gestión de equipos"
+    },
+    "features": {
+        "users": {
+            "title": "Gestión de jugadores",
+            "description": "Organiza a los jugadores por posición (colocadores, rematadores, líberos) y lleva un registro de las alineaciones activas."
+        },
+        "trendingUp": {
+            "title": "Análisis de partidos",
+            "description": "Realiza un seguimiento de las estadísticas de rendimiento, como remates, saques directos, bloqueos y porcentajes de defensa."
+        },
+        "calendar":{
+            "title": "Calendario",
+            "description": "Coordina fácilmente los partidos y los calendarios de los torneos"
+        }
+    }
+}

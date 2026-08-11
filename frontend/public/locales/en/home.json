@@ -1,0 +1,23 @@
+{
+  "welcome": "The complete platform for volleyball team management.",
+  "description": "Translations are now loaded from separate JSON files.",
+  "buttons": {
+    "es": "Spanish",
+    "en": "English",
+    "main": "Team Management"
+  },
+  "features":{
+    "users": {
+            "title": "Player Management",
+            "description": "Organize players by position (setters, hitters, liberos) and track active lineups."
+        },
+        "trendingUp": {
+            "title": "Match Analytics",
+            "description": "Track performance stats like kills, service aces, blocks, and dig percentages."
+        },
+        "calendar":{
+            "title": "Court Scheduling",
+            "description": "Coordinate matches and tournament timelines easily."
+        }
+  }
+}

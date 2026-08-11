@@ -1,0 +1,55 @@
+{
+    "title": "Teams",
+    "subtitle": "team",
+    "founded": "Founded",
+    "players": "Players",
+    "create": "Create team",
+    "loading": "Loading teams...",
+    "error": {
+        "notLoad": "Could not load teams",
+        "notTeams": {
+            "title": "No teams yet",
+            "subtitle": "There are no teams to display."
+        }
+    },
+    "page": {
+        "loading": "Loading...",
+        "notFound": "Team not found",
+        "notFoundDescription": "We could not load this team page.",
+        "allTeams": "All teams",
+        "home": "Home",
+        "myTeam": "My team",
+        "foundedOn": "Founded on {{date}}",
+        "editTeam": "Edit team",
+        "deleteTeam": "Delete team",
+        "deleteConfirm": "Delete team \"{{name}}\"? This cannot be undone.",
+        "editTitle": "Edit team profile",
+        "teamName": "Team name",
+        "foundationDate": "Foundation date",
+        "logoUrl": "Logo URL",
+        "logoPlaceholder": "https://...",
+        "saving": "Saving...",
+        "save": "Save",
+        "cancel": "Cancel",
+        "roster": "Roster ({{count}})",
+        "addPlayer": "Add player",
+        "editPlayer": "Edit player",
+        "addPlayerTitle": "Add player",
+        "name": "Name",
+        "surname": "Surname",
+        "email": "Email",
+        "dorsal": "Dorsal",
+        "corePosition": "Core position",
+        "saveChanges": "Save changes",
+        "removePlayer": "Remove",
+        "removePlayerConfirm": "Remove {{name}} {{surname}} from the roster?",
+        "noPlayers": "No players in this team yet.",
+        "positions": {
+            "SETTER": "Setter",
+            "WING_SPIKER": "Outside Hitter",
+            "MIDDLE_BLOCKER": "Middle Blocker",
+            "OPPOSITE": "Opposite",
+            "LIBERO": "Libero"
+        }
+    }
+}

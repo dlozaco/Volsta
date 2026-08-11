@@ -2,10 +2,13 @@
 import { Volleyball, Users, TrendingUp, Calendar, LogIn, UserPlus, Shield } from "lucide-react"
 import { Link } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
+import { useTranslation } from "react-i18next";
 
 
 export default function Home() {
     const { user } = useAuth()
+    const { t } = useTranslation('home')
+
 
     return (
         <div className="relative flex flex-col items-center justify-center min-h-[calc(100vh-64px)] text-center p-6 bg-background">
@@ -18,7 +21,7 @@ export default function Home() {
                     </h1>
                     
                     <p className="mt-5 text-2xl font-medium tracking-tight text-muted-foreground max-w-150 md:text-3xl">
-                        The complete platform for volleyball team management.
+                        {t('welcome')}
                     </p>
 
                     <div className="mt-12 flex flex-wrap gap-4 justify-center">
@@ -27,7 +30,7 @@ export default function Home() {
                             to={'/teams'}
                             className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-full shadow-lg hover:bg-primary/90 transition-colors">
                             <Shield/>
-                            Team Management
+                            {t('buttons.main')}
                         </Link>
                     ) : (
                         <>
@@ -55,8 +58,8 @@ export default function Home() {
                             {feature.icon}
                         </div>
                         <div>
-                            <h3 className="font-semibold text-foreground">{feature.title}</h3>
-                            <p className="text-sm text-muted-foreground">{feature.description}</p>
+                            <h3 className="font-semibold text-foreground">{t(feature.title)}</h3>
+                            <p className="text-sm text-muted-foreground">{t(feature.description)}</p>
                         </div>
                         </div>
                     ))}
@@ -68,7 +71,7 @@ export default function Home() {
 
 
 const volleyballFeatures = [
-  { icon: <Users/>, title: "Player Management", description: "Organize players by position (setters, hitters, liberos) and track active lineups." },
-  { icon: <TrendingUp/>, title: "Match Analytics", description: "Track performance stats like kills, service aces, blocks, and dig percentages." },
-  { icon: <Calendar/>, title: "Court Scheduling", description: "Coordinate matches and tournament timelines easily." },
+  { icon: <Users/>, title: "features.users.title", description: "features.users.description" },
+  { icon: <TrendingUp/>, title: "features.trendingUp.title", description: "features.trendingUp.description" },
+  { icon: <Calendar/>, title: "features.calendar.title", description: "features.calendar.description" },
 ];
