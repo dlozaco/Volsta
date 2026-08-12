@@ -18,25 +18,25 @@ Para entender el contexto de cada historia, se definen los siguientes roles con 
 ### 👤 Módulo 1: Gestión de Usuarios (USER)
 Módulo encargado de la autenticación, seguridad y persistencia de las cuentas dentro del sistema.
 
-#### [US-USER-01] Registro en la plataforma https://github.com/dlozaco/Volsta/issues/11
+#### [US-USER-01] Registro en la plataforma
 * **Descripción:** Como usuario, quiero registrarme en la plataforma para tener mi propia cuenta y acceder al sistema.
 * **Prioridad:** Alta (Must Have)
 * **Criterios de Aceptación:**
 	* **Necesito** un formulario para registrarme con mi nombre de usuario y contraseña. Si el username es repetido, me da error de que ya existe.
 
-#### [US-USER-02] Inicio de sesión https://github.com/dlozaco/Volsta/issues/12
+#### [US-USER-02] Inicio de sesión
 * **Descripción:** Como usuario, quiero iniciar sesión para entrar de forma segura a mi perfil.
 * **Prioridad:** Alta (Must Have)
 * **Criterios de Aceptación:**
 	* **Necesito** que si pongo mal mi nombre o contraseña me salga un aviso genérico
 
-#### [US-USER-03] Edición de perfil https://github.com/dlozaco/Volsta/issues/13
+#### [US-USER-03] Edición de perfil
 * **Descripción:** Como usuario, quiero editar mi perfil para mantener mis datos personales actualizados.
 * **Prioridad:** Media (Should Have)
 * **Criterios de Aceptación:**
     * **Dado que** he iniciado sesión, **cuando** modifico mis datos (foto de perfil, nombre, teléfono), **entonces** el sistema valida los formatos y guarda los cambios mostrando una notificación de éxito.
 
-#### [US-USER-04] Cierre de sesión https://github.com/dlozaco/Volsta/issues/14
+#### [US-USER-04] Cierre de sesión
 * **Descripción:** Como usuario, quiero poder cerrar sesión para proteger la privacidad de mis datos cuando termine de usar la aplicación.
 * **Prioridad:** Alta (Must Have)
 * **Criterios de Aceptación:**
@@ -61,9 +61,10 @@ Módulo orientado a la creación, administración e inspección de los equipos d
 * **Descripción:** Como mánager, quiero editar el perfil de mi equipo (nombre, logo) para mantener nuestra identidad visual e información al día.
 * **Prioridad:** Media (Should Have)
 
-#### [US-TEAM-04] Exploración de equipos rivales https://github.com/dlozaco/Volsta/issues/18
-* **Descripción:** Como usuario, quiero ver los detalles de otro equipo para analizar contra qué rivales me puedo enfrentar.
+#### [US-TEAM-04] Exploración de equipos rivales
+* **Descripción:** Como usuario sin autenticar, quiero ver los detalles de otro equipo para analizar contra qué rivales me puedo enfrentar.
 * **Prioridad:** Media (Should Have)
+* **Dado que** mi usuario no está autenticado, **cuando** accedo a la aplicación, **entonces** en el menú inicial y en el dashboard aparece un botón para poder ver todos los equipos registrados en la aplicación
 
 #### [US-TEAM-05] Baja de equipo
 * **Descripción:** Como mánager, quiero dar de baja a mi equipo para retirarlo del sistema si ya no vamos a competir.
@@ -141,6 +142,12 @@ Visualización y control analítico del desempeño de los equipos y jugadores po
 * **Prioridad:** Alta (Must Have)
 * **Criterios de Aceptación:**
     * **Dado que** un partido ha concluido y se han registrado los datos, **cuando** accedo al apartado estadístico, **entonces** el sistema me muestra una tabla detallada con los sets jugados, puntos anotados, fallos y efectividad por cada jugador que participó.
+
+#### [US-STAT-03] Consulta de estadísticas del equipo
+* **Descripción:** Como mánager, quiero ver las estadística de mi equipo para evaluar el rendimiento (resumen de partidos jugados, partidos ganados, máximo anotador, máximo anotador por posición).
+* **Prioridad:** Alta (Must Have)
+* **Criterios de Aceptación:**
+    * **Dado que** He creado un equipo, **cuando** accedo al apartado estadístico, **entonces** el sistema me muestra una tabla detallada con los sets jugados, puntos anotados, fallos y efectividad por cada jugador que participó.
 
 ---
 
