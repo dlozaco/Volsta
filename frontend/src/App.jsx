@@ -15,6 +15,7 @@ import { AuthProvider, useAuth } from './auth/AuthContext'
 import Teams from './public/Teams'
 import TeamStats from './manager/teamStats/TeamStats'
 import { LanguageSwitcher } from './components/LanguageSwitcher'
+import NotFound from './components/NotFound'
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth()
@@ -24,7 +25,7 @@ function ProtectedRoute({ children }) {
   }
 
   if (!user) {
-    return <Navigate to="/login" replace />
+    return <NotFound />
   }
 
   return children
@@ -70,6 +71,7 @@ function App() {
             <Route path="/matches/new" element={<ProtectedRoute><MatchCreate /></ProtectedRoute>} />
             <Route path="/matches/:id" element={<MatchDetail />} />
             <Route path="/profile" element={<ProtectedRoute><ManagerProfile /></ProtectedRoute>} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
 
         </main>
