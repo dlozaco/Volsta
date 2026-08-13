@@ -124,6 +124,9 @@ export default function Dashboard() {
                     <Button variant="outline" asChild>
                         <Link to="/matches">{t('buttons.allMatches')}</Link>
                     </Button>
+                    <Button variant="outline" asChild>
+                        <Link to="/teams">{t('buttons.allTeams')}</Link>
+                    </Button>
                 </div>
             </div>
 

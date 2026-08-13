@@ -19,6 +19,10 @@ export async function getTeamByName(name) {
   return http.get(`/api/v1/teams/name/${encodeURIComponent(name)}`, { auth: false })
 }
 
+export async function getTeamStats(id) {
+  return http.get(`/api/v1/teams/${id}/stats`, { auth: false })
+}
+
 export async function getMyTeams() {
   const data = await http.get('/api/v1/teams/my', { auth: true })
   if (Array.isArray(data)) return data

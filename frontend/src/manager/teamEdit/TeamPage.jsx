@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '#components/ui/card'
 import { Button } from '#components/ui/button'
 import { Input } from '#components/ui/input'
 import { Label } from '#components/ui/label'
-import { Pencil, Save, X, Trash2, UserPlus, LogOut } from 'lucide-react'
+import { Pencil, Save, X, Trash2, UserPlus, LogOut, BarChart3 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../../auth/AuthContext'
 import { getTeamByName, getMyTeams, updateTeam, deleteTeam } from '@/services/team/teamApi'
@@ -226,6 +226,11 @@ export default function TeamPage() {
                             </Button>
                         </>
                     )}
+                    <Button variant="outline" asChild>
+                        <Link to={`/teams/${encodeURIComponent(team.name)}/stats`}>
+                            <BarChart3 className="size-3" /> {t('page.statsTeam')}
+                        </Link>
+                    </Button>
                     <Button variant="outline" asChild>
                         <Link to="/teams">{t('page.allTeams')}</Link>
                     </Button>
