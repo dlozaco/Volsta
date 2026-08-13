@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { LogIn, UserPlus, LogOut, User, LayoutDashboard, CalendarDays, Shield } from "lucide-react"
+import { LogIn, UserPlus, LogOut, User, LayoutDashboard, CalendarDays, Shield, Users } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -19,14 +19,19 @@ const authItems = [
   { title: "signUp", url: "/register", icon: UserPlus },
 ]
 
-const navItems = [
+const publicItems = [
+  { title: "allTeams", url: "/teams", icon: Users },
+]
+
+const authenticatedItems = [
   { title: "dashboard", url: "/dashboard", icon: LayoutDashboard },
-  { title: "teams", url: "/teams", icon: Shield },
+  { title: "myTeams", url: "/teams/my", icon: Shield, managerOnly: true },
+  { title: "allTeams", url: "/teams", icon: Users },
   { title: "matches", url: "/matches", icon: CalendarDays },
 ]
 
 export function AppSidebar() {
-  const { user, logout } = useAuth()
+  const { user, isManager, logout } = useAuth()
   const { t } = useTranslation('sidebar')
 
   return (
@@ -50,16 +55,18 @@ export function AppSidebar() {
                   </Button>
                 </div>
                 <SidebarMenu className="flex-col gap-2">
-                  {navItems.map((item) => (
-                    <SidebarMenuItem key={item.title}>
-                      <SidebarMenuButton asChild className="h-7 text-lg">
-                        <Link to={item.url} className="flex items-center gap-2">
-                          <item.icon />
-                          <span>{t(item.title)}</span>
-                        </Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  ))}
+                  {authenticatedItems
+                    .filter(item => !item.managerOnly || isManager)
+                    .map((item) => (
+                      <SidebarMenuItem key={item.title}>
+                        <SidebarMenuButton asChild className="h-7 text-lg">
+                          <Link to={item.url} className="flex items-center gap-2">
+                            <item.icon />
+                            <span>{t(item.title)}</span>
+                          </Link>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
                 </SidebarMenu>
                 <Button
                   variant="ghost"
@@ -72,12 +79,22 @@ export function AppSidebar() {
               </div>
             ) : (
               <SidebarMenu className="flex-col gap-2">
+                {publicItems.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild className="h-7 text-lg">
+                      <Link to={item.url} className="flex items-center gap-2">
+                        <item.icon />
+                        <span>{t(item.title)}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
                 {authItems.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild className="h-7 text-lg">
                       <Link to={item.url} className="flex items-center gap-2">
                         <item.icon />
-                        <span>{item.title}</span>
+                        <span>{t(item.title)}</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
