@@ -30,7 +30,7 @@ function formatCountdown(target, now) {
 }
 
 export default function Dashboard() {
-    const { isManager, isAdmin } = useAuth()
+    const { user, isManager, isAdmin } = useAuth()
     const [team, setTeam] = useState(null)
     const [matches, setMatches] = useState([])
     const [loading, setLoading] = useState(true)
@@ -116,11 +116,13 @@ export default function Dashboard() {
                     </p>
                 </div>
                 <div className="flex gap-2">
-                    <Button variant="outline" asChild>
-                        <Link to="/matches/new">
-                            <CalendarPlus className="size-3" /> {t('buttons.newMatch')}
-                        </Link>
-                    </Button>
+                    {user && (
+                        <Button variant="outline" asChild>
+                            <Link to="/matches/new">
+                                <CalendarPlus className="size-3" /> {t('buttons.newMatch')}
+                            </Link>
+                        </Button>
+                    )}
                     <Button variant="outline" asChild>
                         <Link to="/matches">{t('buttons.allMatches')}</Link>
                     </Button>

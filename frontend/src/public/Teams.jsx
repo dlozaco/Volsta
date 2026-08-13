@@ -108,7 +108,7 @@ export default function Teams({ mode = 'all' }) {
       <div className="mx-auto max-w-md space-y-4 rounded-lg border bg-background p-6 text-center">
         <h2 className="text-lg font-semibold">{isMine ? t('error.notMyTeams.title') : t('error.notTeams.title')}</h2>
         <p className="text-sm text-muted-foreground">{isMine ? t('error.notMyTeams.subtitle') : t('error.notTeams.subtitle')}</p>
-        {isMine && isManager && (
+        {isMine && user && isManager && (
           <Button size="sm" asChild>
             <Link to="/teams/new"><Plus className="size-3" /> {t('create')}</Link>
           </Button>
