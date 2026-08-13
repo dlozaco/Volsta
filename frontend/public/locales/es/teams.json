@@ -1,6 +1,9 @@
 {
     "title": "Equipos",
     "subtitle": "equipo",
+    "myTitle": "Mis equipos",
+    "mySubtitle": "equipo",
+    "allTeamsLink": "Ver todos los equipos",
     "founded": "Fundado en",
     "players": "Jugadores",
     "create": "Crear equipo",
@@ -10,6 +13,10 @@
         "notTeams": {
             "title": "No hay equipos todavía",
             "subtitle": "No hay equipos para mostrar"
+        },
+        "notMyTeams": {
+            "title": "Aún no tienes equipos",
+            "subtitle": "Crea tu primer equipo para empezar."
         }
     },
     "page": {
@@ -19,6 +26,7 @@
         "allTeams": "Todos los equipos",
         "home": "Inicio",
         "myTeam": "Mi equipo",
+        "statsTeam": "Estadísticas",
         "foundedOn": "Fundado el {{date}}",
         "editTeam": "Editar equipo",
         "deleteTeam": "Eliminar equipo",

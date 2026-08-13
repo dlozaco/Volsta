@@ -1,0 +1,40 @@
+{
+    "title": "Estadísticas del equipo",
+    "subtitle": "Rendimiento de {{teamName}}",
+    "loading": "Cargando estadísticas...",
+    "notFound": "No se pudieron cargar las estadísticas de este equipo.",
+    "back": "Volver al equipo",
+    "allTeams": "Todos los equipos",
+    "summary": {
+        "played": "Partidos jugados",
+        "won": "Partidos ganados",
+        "lost": "Partidos perdidos",
+        "winRate": "Porcentaje de victorias"
+    },
+    "topScorer": {
+        "title": "Máximo anotador",
+        "points": "puntos"
+    },
+    "topScorerByPosition": {
+        "title": "Máximo anotador por posición"
+    },
+    "playerTable": {
+        "title": "Detalle por jugador",
+        "noPlayers": "Aún no hay estadísticas de jugadores.",
+        "player": "Jugador",
+        "position": "Posición",
+        "sets": "Sets",
+        "points": "Puntos",
+        "faults": "Faltas",
+        "avg": "Prom",
+        "eff": "Efi%"
+    },
+    "empty": "Sin datos todavía",
+    "positions": {
+        "SETTER": "Colocador",
+        "MIDDLE_BLOCKER": "Central",
+        "WING_SPIKER": "Rematador exterior",
+        "OPPOSITE": "Opuesto",
+        "LIBERO": "Líbero"
+    }
+}

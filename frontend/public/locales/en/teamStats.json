@@ -1,0 +1,40 @@
+{
+    "title": "Team statistics",
+    "subtitle": "Performance of {{teamName}}",
+    "loading": "Loading statistics...",
+    "notFound": "We could not load the statistics for this team.",
+    "back": "Back to team",
+    "allTeams": "All teams",
+    "summary": {
+        "played": "Matches played",
+        "won": "Matches won",
+        "lost": "Matches lost",
+        "winRate": "Win rate"
+    },
+    "topScorer": {
+        "title": "Top scorer",
+        "points": "points"
+    },
+    "topScorerByPosition": {
+        "title": "Top scorer by position"
+    },
+    "playerTable": {
+        "title": "Player breakdown",
+        "noPlayers": "No player statistics yet.",
+        "player": "Player",
+        "position": "Position",
+        "sets": "Sets",
+        "points": "Points",
+        "faults": "Faults",
+        "avg": "Avg",
+        "eff": "Eff%"
+    },
+    "empty": "No data yet",
+    "positions": {
+        "SETTER": "Setter",
+        "MIDDLE_BLOCKER": "Middle Blocker",
+        "WING_SPIKER": "Outside Hitter",
+        "OPPOSITE": "Opposite",
+        "LIBERO": "Libero"
+    }
+}
