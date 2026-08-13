@@ -6,7 +6,8 @@
     },
     "buttons": {
         "newMatch": "Nuevo partido",
-        "allMatches": "Todos los partidos"
+        "allMatches": "Todos los partidos",
+        "allTeams": "Todos los equipos"
     },
     "calendar": {
         "title": "Calendario",

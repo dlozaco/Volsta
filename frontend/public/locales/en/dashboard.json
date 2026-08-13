@@ -6,7 +6,8 @@
     },
     "buttons": {
         "newMatch": "New match",
-        "allMatches": "All matches"
+        "allMatches": "All matches",
+        "allTeams": "All teams"
     },
     "calendar": {
         "title": "Calendar",

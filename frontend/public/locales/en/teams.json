@@ -1,6 +1,9 @@
 {
     "title": "Teams",
     "subtitle": "team",
+    "myTitle": "My Teams",
+    "mySubtitle": "team",
+    "allTeamsLink": "View all teams",
     "founded": "Founded",
     "players": "Players",
     "create": "Create team",
@@ -10,6 +13,10 @@
         "notTeams": {
             "title": "No teams yet",
             "subtitle": "There are no teams to display."
+        },
+        "notMyTeams": {
+            "title": "You don't have teams yet",
+            "subtitle": "Create your first team to get started."
         }
     },
     "page": {
@@ -19,6 +26,7 @@
         "allTeams": "All teams",
         "home": "Home",
         "myTeam": "My team",
+        "statsTeam": "Statistics",
         "foundedOn": "Founded on {{date}}",
         "editTeam": "Edit team",
         "deleteTeam": "Delete team",

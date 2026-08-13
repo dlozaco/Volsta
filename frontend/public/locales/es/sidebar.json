@@ -1,6 +1,8 @@
 {
     "home": "Inicio",
     "dashboard": "Panel de control",
+    "myTeams": "Mis equipos",
+    "allTeams": "Ver todos los equipos",
     "teams": "Equipos",
     "matches": "Partidos",
     "logout": "Cerrar sesión",

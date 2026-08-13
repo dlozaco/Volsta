@@ -4,7 +4,10 @@
   "buttons": {
     "es": "Spanish",
     "en": "English",
-    "main": "Team Management"
+    "main": "Team Management",
+    "viewTeams": "View all teams",
+    "signUp": "Sign Up",
+    "login": "Login"
   },
   "features":{
     "users": {

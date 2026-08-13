@@ -1,6 +1,8 @@
 {
     "home": "Home",
     "dashboard": "Dashboard",
+    "myTeams": "My Teams",
+    "allTeams": "All teams",
     "teams": "Teams",
     "matches": "Matches",
     "logout": "Logout",

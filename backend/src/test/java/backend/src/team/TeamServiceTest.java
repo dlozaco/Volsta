@@ -4,8 +4,10 @@ import backend.src.exceptions.BusinessException;
 import backend.src.exceptions.ResourceNotFoundException;
 import backend.src.manager.Manager;
 import backend.src.manager.ManagerRepository;
+import backend.src.player.PositionType;
 import backend.src.team.dto.TeamRequest;
 import backend.src.team.dto.TeamResponse;
+import backend.src.team.dto.TeamStatsResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -150,6 +152,61 @@ class TeamServiceTest {
         Manager other = managerRepository.findById(2).orElseThrow();
 
         assertThrows(AccessDeniedException.class, () -> teamService.delete(1, other));
+    }
+
+    @Test
+    @Transactional
+    void shouldComputeTeamStats() {
+        TeamStatsResponse stats = teamService.stats(1);
+
+        assertEquals(1, stats.teamId());
+        assertEquals("QuokkaCV", stats.teamName());
+        assertEquals(4, stats.matchesPlayed());
+        assertEquals(3, stats.matchesWon());
+        assertEquals(1, stats.matchesLost());
+        assertEquals(6, stats.players().size());
+        assertNotNull(stats.topScorer());
+        assertEquals(3, stats.topScorer().playerId());
+        assertEquals(84, stats.topScorer().totalPoints());
+    }
+
+    @Test
+    @Transactional
+    void shouldComputeTeamStats_PerPlayerTable() {
+        TeamStatsResponse stats = teamService.stats(1);
+
+        backend.src.match.dto.PlayerStats david = stats.players().stream()
+                .filter(p -> p.playerId().equals(1))
+                .findFirst()
+                .orElseThrow();
+        assertEquals(12, david.setsPlayed());
+        assertEquals(82, david.totalPoints());
+        assertEquals(21, david.totalFaults());
+    }
+
+    @Test
+    @Transactional
+    void shouldComputeTeamStats_TopScorerByPosition() {
+        TeamStatsResponse stats = teamService.stats(1);
+
+        assertEquals(3, stats.topScorerByPosition().get(PositionType.OPPOSITE).playerId());
+        assertEquals(1, stats.topScorerByPosition().get(PositionType.MIDDLE_BLOCKER).playerId());
+    }
+
+    @Test
+    @Transactional
+    void shouldComputeTeamStats_FreshTeamWithoutMatches() {
+        Manager manager = newManager("stats.manager@test.com", "999999996");
+        TeamRequest request = new TeamRequest("NoMatchesTeam", LocalDate.of(2024, 1, 1), null);
+        TeamResponse created = teamService.create(request, manager);
+
+        TeamStatsResponse stats = teamService.stats(created.id());
+
+        assertEquals(0, stats.matchesPlayed());
+        assertEquals(0, stats.matchesWon());
+        assertEquals(0, stats.matchesLost());
+        assertNull(stats.topScorer());
+        assertTrue(stats.players().isEmpty());
     }
 
     private Manager newManager(String email, String phone) {

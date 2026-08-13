@@ -1,4 +1,4 @@
-import { getAllTeams } from "@/services/team/teamApi";
+import { getAllTeams, getMyTeams } from "@/services/team/teamApi";
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "#components/ui/card";
 import { Skeleton } from "#components/ui/skeleton";
@@ -59,8 +59,9 @@ function TeamCardSkeleton() {
   );
 }
 
-export default function Teams() {
+export default function Teams({ mode = 'all' }) {
   const { user, isManager } = useAuth();
+  const isMine = mode === 'mine'
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -68,18 +69,19 @@ export default function Teams() {
 
   useEffect(() => {
     let cancelled = false
-    getAllTeams()
+    const fetchTeams = isMine ? getMyTeams : getAllTeams
+    fetchTeams()
       .then(data => { if (!cancelled) setTeams(data) })
       .catch(err => { if (!cancelled) setError(err) })
       .finally(() => { if (!cancelled) setLoading(false) })
     return () => { cancelled = true }
-  }, [])
+  }, [isMine])
 
   if (loading) {
     return (
       <div className="space-y-6">
         <div className="space-y-1">
-          <h1 className="text-2xl font-bold">{t('title')}</h1>
+          <h1 className="text-2xl font-bold">{isMine ? t('myTitle') : t('title')}</h1>
           <p className="text-sm text-muted-foreground">{t('loading')}</p>
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -104,8 +106,13 @@ export default function Teams() {
   if (teams.length === 0) {
     return (
       <div className="mx-auto max-w-md space-y-4 rounded-lg border bg-background p-6 text-center">
-        <h2 className="text-lg font-semibold">{t('error.notTeams.title')}</h2>
-        <p className="text-sm text-muted-foreground">{t('error.notTeams.subtitle')}</p>
+        <h2 className="text-lg font-semibold">{isMine ? t('error.notMyTeams.title') : t('error.notTeams.title')}</h2>
+        <p className="text-sm text-muted-foreground">{isMine ? t('error.notMyTeams.subtitle') : t('error.notTeams.subtitle')}</p>
+        {isMine && isManager && (
+          <Button size="sm" asChild>
+            <Link to="/teams/new"><Plus className="size-3" /> {t('create')}</Link>
+          </Button>
+        )}
       </div>
     );
   }
@@ -114,14 +121,21 @@ export default function Teams() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="space-y-1">
-          <h1 className="text-2xl font-bold">{t('title')}</h1>
-          <p className="text-sm text-muted-foreground">{teams.length} {t('subtitle')}{teams.length !== 1 ? 's' : ''}</p>
+          <h1 className="text-2xl font-bold">{isMine ? t('myTitle') : t('title')}</h1>
+          <p className="text-sm text-muted-foreground">{teams.length} {isMine ? t('mySubtitle') : t('subtitle')}{teams.length !== 1 ? 's' : ''}</p>
         </div>
-        {user && isManager && (
-          <Button size="sm" asChild>
-            <Link to="/teams/new"><Plus className="size-3" /> {t('create')}</Link>
-          </Button>
-        )}
+        <div className="flex flex-wrap gap-2">
+          {isMine && (
+            <Button variant="outline" size="sm" asChild>
+              <Link to="/teams">{t('allTeamsLink')}</Link>
+            </Button>
+          )}
+          {isMine && user && isManager && (
+            <Button size="sm" asChild>
+              <Link to="/teams/new"><Plus className="size-3" /> {t('create')}</Link>
+            </Button>
+          )}
+        </div>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

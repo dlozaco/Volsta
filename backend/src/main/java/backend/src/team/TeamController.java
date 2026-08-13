@@ -4,6 +4,7 @@ import backend.src.manager.Manager;
 import backend.src.security.CurrentUserService;
 import backend.src.team.dto.TeamRequest;
 import backend.src.team.dto.TeamResponse;
+import backend.src.team.dto.TeamStatsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,6 +44,11 @@ public class TeamController {
     @GetMapping("/{id}")
     public ResponseEntity<TeamResponse> getTeamById(@PathVariable Integer id) {
         return ResponseEntity.ok(teamService.findById(id));
+    }
+
+    @GetMapping("/{id}/stats")
+    public ResponseEntity<TeamStatsResponse> getTeamStats(@PathVariable Integer id) {
+        return ResponseEntity.ok(teamService.stats(id));
     }
 
     @GetMapping("/name/{name}")

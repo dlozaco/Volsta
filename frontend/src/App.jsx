@@ -13,6 +13,7 @@ import MatchDetail from './public/MatchDetail'
 import MatchCreate from './manager/matchCreate/MatchCreate'
 import { AuthProvider, useAuth } from './auth/AuthContext'
 import Teams from './public/Teams'
+import TeamStats from './manager/teamStats/TeamStats'
 import { LanguageSwitcher } from './components/LanguageSwitcher'
 
 function ProtectedRoute({ children }) {
@@ -61,6 +62,8 @@ function App() {
             <Route path="/login" element={<PublicRoute><SignIn /></PublicRoute>} />
             <Route path="/teams" element={<Teams />} />
             <Route path="/teams/new" element={<ProtectedRoute><TeamCreate /></ProtectedRoute>} />
+            <Route path="/teams/my" element={<ProtectedRoute><Teams mode="mine" /></ProtectedRoute>} />
+            <Route path="/teams/:name/stats" element={<TeamStats />} />
             <Route path="/teams/:name" element={<TeamPage />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/matches" element={<Matches />} />

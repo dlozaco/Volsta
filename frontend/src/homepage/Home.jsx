@@ -38,14 +38,21 @@ export default function Home() {
                                 to={'/register'}
                                 className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-full shadow-lg hover:bg-primary/90 transition-colors">
                                 <UserPlus/>
-                                Sign Up
+                                {t('buttons.signUp')}
                             </Link>
                             <Link
                                 to={'/login'}
                                 className="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-secondary-foreground font-semibold rounded-full shadow-lg hover:bg-primary/90 transition-all duration-200"
                                 >
                                 <LogIn/>
-                                Login
+                                {t('buttons.login')}
+                            </Link>
+                            <Link
+                                to={'/teams'}
+                                className="inline-flex items-center gap-2 px-6 py-3 bg-card text-foreground border border-border font-semibold rounded-full shadow-lg hover:bg-muted transition-colors"
+                            >
+                                <Shield className="text-primary"/>
+                                {t('buttons.viewTeams')}
                             </Link>
                         </>
                     )}

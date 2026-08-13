@@ -3,7 +3,10 @@
     "buttons": {
         "es": "Español",
         "en": "Inglés",
-        "main": "Gestión de equipos"
+        "main": "Gestión de equipos",
+        "viewTeams": "Ver todos los equipos",
+        "signUp": "Registrarse",
+        "login": "Iniciar sesión"
     },
     "features": {
         "users": {
